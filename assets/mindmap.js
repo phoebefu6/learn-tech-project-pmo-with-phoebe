@@ -19,11 +19,16 @@
   var data = window.MINDMAP_DATA;
   if (!host || !data || !data.sessions || !data.sessions.length) return;
 
-  var W = 960, H = 720, cx = W / 2, cy = H / 2;
-  var R1 = 150;          // session ring radius
-  var R2 = 288;          // concept ring radius (base; odd twigs pushed out to form a 2nd row)
   var SVGNS = "http://www.w3.org/2000/svg";
   var n = data.sessions.length;
+  // n-adaptive geometry: rings and canvas grow with session count so the same
+  // renderer fits courses from 6 to 14+ sessions (keeps session nodes from crowding).
+  var STAGGER = 44;                          // odd twigs pushed out to form a 2nd row
+  var R1 = Math.max(150, Math.round(23 * n)); // session ring
+  var R2 = R1 + 145;                          // concept ring (base)
+  var maxR = R2 + STAGGER;
+  var W = 2 * (maxR + 150), H = 2 * (maxR + 60), cx = W / 2, cy = H / 2;
+  var angleStep = 360 / n;                    // degrees between sessions
 
   function el(name, attrs, text) {
     var e = document.createElementNS(SVGNS, name);
@@ -87,11 +92,14 @@
     edges.push(spoke);
 
     var cs = s.concepts || [];
-    var spread = cs.length > 2 ? 20 : (cs.length > 1 ? 24 : 0); // degrees between twigs
+    // spread never exceeds ~60% of the angular sector, so concept fans never cross into
+    // a neighbouring session (matters for dense 9-14 session courses).
+    var base = cs.length > 2 ? 22 : (cs.length > 1 ? 26 : 0);
+    var spread = Math.min(base, angleStep * 0.6);
     var conceptEls = [];
     cs.forEach(function (c, j) {
       var off = (j - (cs.length - 1) / 2) * spread;
-      var rBonus = (j % 2 === 1) ? 42 : 0; // stagger alternate twigs into a 2nd row (no collisions)
+      var rBonus = (j % 2 === 1) ? STAGGER : 0; // stagger alternate twigs into a 2nd row
       var ca = (-90 + i * (360 / n) + off) * Math.PI / 180;
       var ccx = cx + (R2 + rBonus) * Math.cos(ca);
       var ccy = cy + (R2 + rBonus) * Math.sin(ca);
