@@ -44,6 +44,17 @@
   .path .pstep { background: var(--indigo-50); color: var(--indigo); border-radius: 999px; padding: .16rem .68rem; font-weight: 700; font-size: .8rem; text-decoration: none; transition: all .12s ease; }
   .path .pstep:hover { background: var(--indigo); color: #fff; }
   .path .parr { color: var(--faint); font-weight: 700; }
+
+  .mm-section { margin-top: 1.6rem; }
+  .mm-section h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .2rem; }
+  .mm-section .mm-lede { color: var(--muted); font-size: .92rem; margin-bottom: .4rem; }
+  .mm-wrap { border: 1px solid var(--hairline); border-radius: var(--radius); background: linear-gradient(180deg,#fff, #F6FAFD); padding: .6rem; overflow-x: auto; }
+  .mm-svg { width: 100%; height: auto; display: block; max-width: 60rem; margin: 0 auto; min-width: 34rem; }
+  .mm-link { cursor: pointer; text-decoration: none; }
+  .mm-node rect { transition: opacity .15s ease, filter .15s ease; }
+  .mm-node text { pointer-events: none; }
+  .mm-link:hover .mm-node rect { filter: brightness(1.06); }
+  .mm-edge { transition: opacity .15s ease; }
 </style>
 </head>
 <body>
@@ -63,6 +74,12 @@
 </header>
 
 <main class="wrap">
+  <section class="section mm-section">
+    <h2>The knowledge map 🧠</h2>
+    <p class="mm-lede">The whole course at a glance - hover a session to spotlight its concepts, click any node to jump in.</p>
+    <div class="mm-wrap"><div id="mindmap"></div></div>
+  </section>
+
   <section class="section">
     <div class="course-grid">
       <a class="course-card" href="courses/01-frame-the-initiative.html" style="--diff:#34D399">
@@ -153,6 +170,45 @@
   </footer>
 </main>
 
+<script>
+window.MINDMAP_DATA = {
+  title: "Tech Project\nPMO",
+  centerColor: "#0B2A45",
+  sessions: [
+    { label: "Frame &\ncharter", href: "courses/01-frame-the-initiative.html", color: "#34D399",
+      concepts: [
+        { label: "Interim vs final", href: "courses/01-frame-the-initiative.html" },
+        { label: "Charter anatomy", href: "courses/01-frame-the-initiative.html" },
+        { label: "P1-P4 priorities", href: "courses/01-frame-the-initiative.html" } ] },
+    { label: "Milestone\narchitecture", href: "courses/02-milestone-architecture.html", color: "#FBBF24",
+      concepts: [
+        { label: "Milestone table", href: "courses/02-milestone-architecture.html" },
+        { label: "SMART criteria", href: "courses/02-milestone-architecture.html" },
+        { label: "M1-M6 ladder", href: "courses/02-milestone-architecture.html" } ] },
+    { label: "Dependencies\n& gates", href: "courses/03-dependencies-and-gates.html", color: "#FB923C",
+      concepts: [
+        { label: "Dependency types", href: "courses/03-dependencies-and-gates.html" },
+        { label: "Hard gates", href: "courses/03-dependencies-and-gates.html" },
+        { label: "Critical path", href: "courses/03-dependencies-and-gates.html" } ] },
+    { label: "Risk\nregister", href: "courses/04-the-risk-register.html", color: "#FBBF24",
+      concepts: [
+        { label: "Prob. x impact", href: "courses/04-the-risk-register.html" },
+        { label: "Mitigation & owner", href: "courses/04-the-risk-register.html" },
+        { label: "RAID log", href: "courses/04-the-risk-register.html" } ] },
+    { label: "Ownership\n& RACI", href: "courses/05-ownership-and-raci.html", color: "#FBBF24",
+      concepts: [
+        { label: "RACI grid", href: "courses/05-ownership-and-raci.html" },
+        { label: "Internal vs external", href: "courses/05-ownership-and-raci.html" },
+        { label: "Escalation", href: "courses/05-ownership-and-raci.html" } ] },
+    { label: "Sizing &\ntracking", href: "courses/06-sizing-and-tracking.html", color: "#FB923C",
+      concepts: [
+        { label: "Benchmark sizing", href: "courses/06-sizing-and-tracking.html" },
+        { label: "Migration tracker", href: "courses/06-sizing-and-tracking.html" },
+        { label: "RAG & go-live", href: "courses/06-sizing-and-tracking.html" } ] }
+  ]
+};
+</script>
+<script src="assets/mindmap.js?v=2"></script>
 <script src="assets/app.js?v=1"></script>
 </body>
 </html>
