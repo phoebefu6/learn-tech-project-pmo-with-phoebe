@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 · The risk register - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 4 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 4 of 6</div>
+    <h1>The risk register: <span class="accent">name what could go wrong before it does</span></h1>
+    <p class="sub">Session 3's dependency graph showed what blocks what. Risks are what could go wrong on those blocks. Today you turn worry into a register: score each risk on probability and impact, give every one a mitigation, an owner, and a trigger, then park it in a RAID log you review on a cadence. By the end you will have Northwind's full 8-row register, R1 to R8, drafted the way senior data leads actually run it.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Core</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">Builds on Session 3</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>From dependencies to risks</h2>
+    </div>
+    <p class="lede">A dependency tells you the order things must happen. A risk tells you where that order could break: the hire that arrives late, the dictionary that turns out half-empty, the cloud bill that triples on 80 TB of reprocessing. Every serious build carries a handful of these, and the ones that hurt are always the ones nobody wrote down. The risk register is the artifact that drags them into the light - one row per risk, each scored, mitigated, owned, and watched. Today we build <strong>Northwind's</strong> in full.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Northwind's 8-row risk register (R1-R8), each risk scored on probability x impact, tagged HIGH/MED/LOW, and fitted with a mitigation, a single owner, and a trigger. Plus the RAID habit that keeps it alive: reviewed at every status meeting, burned down or escalated, never left to rot in a slide from month one.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: SCORING ============ -->
+  <section class="section" id="scoring">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · anatomy &amp; scoring</span>
+      <h2>Risk register anatomy &amp; probability x impact <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A risk is an uncertain future event with a probability (how likely) and an impact (how much it hurts). Score each on a scale - a 1-to-5 for each works well - and multiply the two for a severity score. That single number turns "I have a bad feeling about the dictionary" into "probability 5, impact 4, severity 20 - top-right corner, act now." The matrix below is where Northwind's risks land.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Probability by impact matrix: a five by five grid shaded green to red, with Northwind risks R1, R3 and R6 plotted as dots">
+        <style>
+          .piT { font: 700 12.5px Inter, sans-serif; fill: #16202B; }
+          .piX { font: 400 11.5px Inter, sans-serif; fill: #5C6B7A; }
+          .piC { font: 700 11px Inter, sans-serif; fill: #16202B; }
+          .piD { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .piN { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- Row 0 prob5: yellow orange red red red -->
+        <rect x="140" y="40" width="88" height="48" fill="#FBBF24"/>
+        <rect x="228" y="40" width="88" height="48" fill="#FB923C"/>
+        <rect x="316" y="40" width="88" height="48" fill="#F87171"/>
+        <rect x="404" y="40" width="88" height="48" fill="#F87171"/>
+        <rect x="492" y="40" width="88" height="48" fill="#F87171"/>
+        <!-- Row 1 prob4: green yellow orange red red -->
+        <rect x="140" y="88" width="88" height="48" fill="#34D399"/>
+        <rect x="228" y="88" width="88" height="48" fill="#FBBF24"/>
+        <rect x="316" y="88" width="88" height="48" fill="#FB923C"/>
+        <rect x="404" y="88" width="88" height="48" fill="#F87171"/>
+        <rect x="492" y="88" width="88" height="48" fill="#F87171"/>
+        <!-- Row 2 prob3: green yellow yellow orange red -->
+        <rect x="140" y="136" width="88" height="48" fill="#34D399"/>
+        <rect x="228" y="136" width="88" height="48" fill="#FBBF24"/>
+        <rect x="316" y="136" width="88" height="48" fill="#FBBF24"/>
+        <rect x="404" y="136" width="88" height="48" fill="#FB923C"/>
+        <rect x="492" y="136" width="88" height="48" fill="#F87171"/>
+        <!-- Row 3 prob2: green green yellow yellow orange -->
+        <rect x="140" y="184" width="88" height="48" fill="#34D399"/>
+        <rect x="228" y="184" width="88" height="48" fill="#34D399"/>
+        <rect x="316" y="184" width="88" height="48" fill="#FBBF24"/>
+        <rect x="404" y="184" width="88" height="48" fill="#FBBF24"/>
+        <rect x="492" y="184" width="88" height="48" fill="#FB923C"/>
+        <!-- Row 4 prob1: green green green green yellow -->
+        <rect x="140" y="232" width="88" height="48" fill="#34D399"/>
+        <rect x="228" y="232" width="88" height="48" fill="#34D399"/>
+        <rect x="316" y="232" width="88" height="48" fill="#34D399"/>
+        <rect x="404" y="232" width="88" height="48" fill="#34D399"/>
+        <rect x="492" y="232" width="88" height="48" fill="#FBBF24"/>
+        <!-- axis labels -->
+        <text class="piT" x="30" y="165" transform="rotate(-90 30 165)">Probability →</text>
+        <text class="piX" x="118" y="66" text-anchor="end">high</text>
+        <text class="piX" x="118" y="260" text-anchor="end">low</text>
+        <text class="piT" x="360" y="305" text-anchor="middle">Impact →</text>
+        <text class="piX" x="184" y="298" text-anchor="middle">low</text>
+        <text class="piX" x="536" y="298" text-anchor="middle">high</text>
+        <!-- dots -->
+        <circle cx="448" cy="64" r="16" fill="#0B2A45"/>
+        <text class="piD" x="448" y="68" text-anchor="middle">R1</text>
+        <circle cx="536" cy="112" r="16" fill="#0B2A45"/>
+        <text class="piD" x="536" y="116" text-anchor="middle">R3</text>
+        <circle cx="360" cy="160" r="16" fill="#0B2A45"/>
+        <text class="piD" x="360" y="164" text-anchor="middle">R6</text>
+        <!-- legend right -->
+        <rect x="620" y="44" width="16" height="16" rx="3" fill="#34D399"/><text class="piC" x="644" y="57">Low</text>
+        <rect x="620" y="70" width="16" height="16" rx="3" fill="#FBBF24"/><text class="piC" x="644" y="83">Watch</text>
+        <rect x="620" y="96" width="16" height="16" rx="3" fill="#FB923C"/><text class="piC" x="644" y="109">Serious</text>
+        <rect x="620" y="122" width="16" height="16" rx="3" fill="#F87171"/><text class="piC" x="644" y="135">Critical</text>
+        <text class="piX" x="620" y="168">R1 dictionary · R3 hiring</text>
+        <text class="piX" x="620" y="186">R6 cost - all plotted left</text>
+        <rect x="620" y="232" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="piN" x="642" y="243">Severity =</text>
+        <text class="piN" x="642" y="261">probability x impact.</text>
+        <text class="piN" x="642" y="279">Top-right = act first.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Northwind's R1, R3 and R6 on the probability x impact matrix</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Scoring probability and impact<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Pick one scale and use it for every risk so the numbers compare. A 1-to-5 on each axis is the common practitioner choice: 1 is "rare / trivial", 5 is "near-certain / severe". Multiply the two for a severity score from 1 to 25, then read the cell colour to decide urgency.</p>
+        <ul>
+          <li><strong>Probability</strong> - how likely, honestly, given what you know today. A rushed handover dictionary being low quality is near-certain, so R1 scores a 5.</li>
+          <li><strong>Impact</strong> - how much it hurts the outcome, not how loud it feels. Hiring slipping blocks every technical milestone, so R3's impact is a 5.</li>
+          <li><strong>Severity = probability x impact</strong> - the single number that ranks the register. It tells you the review order, not a promise; a low-probability, catastrophic risk still earns a plan.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Score with the room, not alone.</strong> The most useful thirty seconds of a risk workshop is when the source-dev lead says "actually the dictionary is worse than you think" and the impact ticks up. Scores are a conversation starter - the point is a shared, written number everyone argued over, not a spreadsheet you filled in quietly.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Risk vs issue vs assumption<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three words get muddled and the muddle costs you. A <strong>risk</strong> is uncertain and in the future - it <em>might</em> happen. An <strong>issue</strong> is certain and in the present - it <em>has</em> happened and needs fixing now. An <strong>assumption</strong> is something you are treating as true without proof - if it turns out false, it becomes a risk or an issue.</p>
+        <table class="clean">
+          <thead><tr><th>Type</th><th>Tense</th><th>Northwind example</th></tr></thead>
+          <tbody>
+            <tr><td>Risk</td><td>Might happen</td><td>R3: critical hiring could slip and block M2</td></tr>
+            <tr><td>Issue</td><td>Has happened</td><td>Keys are not aligned across POS and e-commerce today</td></tr>
+            <tr><td>Assumption</td><td>Taken as true</td><td>Source teams will deliver ERDs on the agreed date</td></tr>
+          </tbody>
+        </table>
+        <p>Keeping them in separate columns of the RAID log stops the classic mistake: managing a live issue as if it were a maybe.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: MITIGATION / OWNER / TRIGGER ============ -->
+  <section class="section" id="mitigation">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · the row, fully built</span>
+      <h2>Every risk needs a mitigation, an owner, a trigger <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A score without a plan is just anxiety with a number on it. A complete risk row carries five more things after the severity tag: a mitigation that reduces the risk, a single owner who is accountable, a trigger that tells you it is materialising, and an escalation path for when it does. Here is R1, Northwind's highest risk, opened up into its full anatomy.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Risk R1 expanded into stacked rows: risk, severity, mitigation, owner, trigger and escalation">
+        <style>
+          .raT { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+          .raS { font: 400 12px Inter, sans-serif; fill: #FFFFFF; opacity: .92; }
+          .raK { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .raX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <rect x="40" y="24" width="800" height="40" rx="10" fill="#0B2A45"/>
+        <text class="raK" x="58" y="43">RISK</text>
+        <text class="raS" x="200" y="49">R1 · low-quality / incomplete data dictionary</text>
+        <rect x="40" y="72" width="800" height="40" rx="10" fill="#C9930A"/>
+        <text class="raK" x="58" y="91">SEVERITY</text>
+        <text class="raS" x="200" y="97">HIGH · probability 5 x impact 4 = 20, critical cell</text>
+        <rect x="40" y="120" width="800" height="40" rx="10" fill="#14507D"/>
+        <text class="raK" x="58" y="139">MITIGATION</text>
+        <text class="raS" x="200" y="145">run an independent profiling pass, do not trust the handover</text>
+        <rect x="40" y="168" width="800" height="40" rx="10" fill="#2E77AB"/>
+        <text class="raK" x="58" y="187">OWNER</text>
+        <text class="raS" x="200" y="193">Priya, Head of Data &amp; Analytics - one name, not a team</text>
+        <rect x="40" y="216" width="800" height="40" rx="10" fill="#2E77AB"/>
+        <text class="raK" x="58" y="235">TRIGGER</text>
+        <text class="raS" x="200" y="241">profiling finds &gt;10% of columns undocumented or mis-typed</text>
+        <rect x="40" y="264" width="800" height="40" rx="10" fill="#8FBCDD"/>
+        <text class="raK" x="58" y="283" style="fill:#16202B">ESCALATION</text>
+        <text class="raS" x="200" y="289" style="fill:#16202B">to the Executive Sponsor, then the CEO if the timeline is at risk</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one risk, six fields: R1 fully built out</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Mitigate, avoid, transfer, accept<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You have four honest responses to any risk. Naming which one you are choosing keeps the register from being a wish list of "we'll be careful."</p>
+        <ul>
+          <li><strong>Mitigate</strong> - reduce probability or impact. Most rows land here: R1's independent profiling pass makes the bad-dictionary outcome smaller and earlier.</li>
+          <li><strong>Avoid</strong> - change the plan so the risk cannot occur. Deferring real-time streaming out of scope avoids a whole class of pipeline risk.</li>
+          <li><strong>Transfer</strong> - move the risk to someone better placed to carry it, via a contract or SLA. R6 cost overrun can be partly transferred with a committed-spend agreement.</li>
+          <li><strong>Accept</strong> - decide the risk is small enough to live with, and say so on the page. Acceptance is a valid choice only when it is written down and owned, not when it is forgotten.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>One owner, always</strong>
+          A risk owned by "the team" is owned by nobody. Put one name in the owner field - the person who watches the trigger and pulls the mitigation. They do not have to do the work; they have to make sure it happens.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The owner-with-no-authority trap<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The most common failure in a risk register is naming an owner who cannot actually act. You assign R3 (hiring delay) to the PMO, but the PMO cannot approve senior salaries or unblock a hiring freeze - only the sponsor can. So the trigger fires, the "owner" raises a hand, and nothing moves.</p>
+        <ul>
+          <li><strong>Match owner to authority:</strong> the owner must be able to pull the mitigation lever, not just report that it is stuck.</li>
+          <li><strong>Escalation is not ownership:</strong> if the real lever sits two levels up, the escalation path names that level explicitly - it does not pretend the reporter owns the outcome.</li>
+          <li><strong>Northwind's R3</strong> is therefore owned by the Executive Sponsor (who leads the senior-hire panel), not by Marcus in the PMO, who tracks it.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: RAID + CADENCE ============ -->
+  <section class="section" id="raid">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · the log &amp; the cadence</span>
+      <h2>RAID and the review cadence <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">The risk register does not live alone. It sits inside a RAID log - Risks, Assumptions, Issues, Dependencies - the four things a PMO tracks continuously. Risks are the R column, but the log's value is the discipline around it: reviewed on a cadence, each risk either burned down (mitigated to closed) or escalated, never quietly abandoned.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RAID log as four quadrants: risks, assumptions, issues and dependencies, each with a Northwind example">
+        <style>
+          .rdH { font: 700 15px Inter, sans-serif; fill: #FFFFFF; }
+          .rdL { font: 700 12px Inter, sans-serif; fill: #FFFFFF; opacity: .85; }
+          .rdB { font: 400 12.5px Inter, sans-serif; fill: #16202B; }
+          .rdN { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- R -->
+        <rect x="40" y="30" width="390" height="130" rx="12" fill="#EAF2F8"/>
+        <rect x="40" y="30" width="390" height="34" rx="12" fill="#0B2A45"/>
+        <text class="rdH" x="58" y="53">R · Risks</text>
+        <text class="rdL" x="330" y="51">might happen</text>
+        <text class="rdB" x="58" y="92">R3: critical hiring slips and</text>
+        <text class="rdB" x="58" y="112">blocks the M2 infra milestone</text>
+        <text class="rdN" x="58" y="140">scored, owned, watched via trigger</text>
+        <!-- A -->
+        <rect x="450" y="30" width="390" height="130" rx="12" fill="#EAF2F8"/>
+        <rect x="450" y="30" width="390" height="34" rx="12" fill="#14507D"/>
+        <text class="rdH" x="468" y="53">A · Assumptions</text>
+        <text class="rdL" x="720" y="51">taken as true</text>
+        <text class="rdB" x="468" y="92">Source dev teams deliver ERDs</text>
+        <text class="rdB" x="468" y="112">and keys on the agreed date</text>
+        <text class="rdN" x="468" y="140">if false, it becomes a risk or issue</text>
+        <!-- I -->
+        <rect x="40" y="176" width="390" height="130" rx="12" fill="#EAF2F8"/>
+        <rect x="40" y="176" width="390" height="34" rx="12" fill="#2E77AB"/>
+        <text class="rdH" x="58" y="199">I · Issues</text>
+        <text class="rdL" x="330" y="197">already happening</text>
+        <text class="rdB" x="58" y="238">Keys are not aligned across</text>
+        <text class="rdB" x="58" y="258">POS and e-commerce today</text>
+        <text class="rdN" x="58" y="286">fix now, do not "monitor" a live issue</text>
+        <!-- D -->
+        <rect x="450" y="176" width="390" height="130" rx="12" fill="#EAF2F8"/>
+        <rect x="450" y="176" width="390" height="34" rx="12" fill="#8FBCDD"/>
+        <text class="rdH" x="468" y="199" style="fill:#16202B">D · Dependencies</text>
+        <text class="rdL" x="720" y="197" style="fill:#16202B;opacity:.75">order that binds</text>
+        <text class="rdB" x="468" y="238">Governance sign-off gates the</text>
+        <text class="rdB" x="468" y="258">M2 architecture (from Session 3)</text>
+        <text class="rdN" x="468" y="286">the hard gate lives here as a D row</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one Northwind example in each RAID quadrant</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Running the risk review<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A register is only as good as its review rhythm. On a data platform build, the risk review rides on the regular status cadence - weekly or fortnightly - and takes ten minutes if the log is kept honest between meetings.</p>
+        <ul>
+          <li><strong>Sort by severity</strong> and walk the top rows first. The HIGH risks (R1-R4) get airtime every meeting; the MEDs get a glance.</li>
+          <li><strong>For each, ask three things:</strong> has the score changed? has the trigger fired? is the mitigation on track? Update the number, not just the notes.</li>
+          <li><strong>Close, hold, or escalate</strong> - every reviewed risk leaves the meeting with a verb. A risk that is neither improving nor escalating is a risk nobody actually owns.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>This register comes back in Session 6</strong>
+          The 8-row register you build today is reviewed at every status meeting when we cover status cadence and RAG reporting. Build it so a chairman can scan it in ninety seconds: ID, risk, severity, mitigation, owner.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Risk burn-down over the project<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A healthy project's total risk should trend down over time as mitigations land and uncertainty resolves. Plotting the sum of severity scores meeting by meeting gives you a burn-down line - a single chart that tells a board whether the build is getting safer or scarier.</p>
+        <ul>
+          <li><strong>Early spike is normal:</strong> as you learn the estate, you find risks you did not know to name. The line often rises before it falls.</li>
+          <li><strong>The shape is the signal:</strong> a line that will not come down by mid-project means mitigations are not working - or the real risks are still hidden.</li>
+          <li><strong>New risks are healthy:</strong> a register that never adds a row is not de-risked, it is stale. Northwind's should gain and retire rows as milestones pass.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>Score R2, R5 and R6 on probability x impact <span class="tag demo">★ 7 min · everyone scores</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Take three Northwind risks: R2 archive completeness &amp; reconciliation gaps, R5 scope creep ("100% of everything" vs a curated set), R6 cloud cost blowout on 80 TB. For each, agree a probability 1-5 and an impact 1-5 with your neighbour.</p></div>
+      <div class="step"><p>Multiply to get a severity score, then place each on the matrix. Sanity-check against the canon: R2 lands HIGH, R5 and R6 land MED. If your scoring disagrees, say why out loud - that argument is the exercise.</p></div>
+      <div class="step"><p>For R6, notice how a "medium" can still demand action: high impact, moderate probability. Severity ranks urgency, it does not excuse ignoring the corner cases.</p></div>
+      <div class="step"><p>Read one pair's scores aloud. The room checks: did impact reflect the outcome, not the noise? Did anyone confuse a live issue with a risk?</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>Scope creep (R5) is the risk teams most often under-score because it feels like nobody's fault - it arrives one "small addition" at a time. Scoring it explicitly, and pointing at the peer-benchmark curated set from Session 6, is how you give the PMO a written reason to say "that is a change, not a given."</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Write mitigation, owner and trigger for R1 and R3 <span class="tag demo">★ 9 min · everyone writes</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>For <strong>R1</strong> (low-quality dictionary), write the three fields: mitigation ("independent profiling pass, do not trust the handover"), owner (one name - Priya, Head of D&amp;A), trigger ("profiling finds &gt;10% of columns undocumented or mis-typed").</p></div>
+      <div class="step"><p>For <strong>R3</strong> (hiring delay), write the same three. Watch the owner: it is the Executive Sponsor who leads the hire panel, not the PMO who merely tracks it - avoid the owner-with-no-authority trap.</p></div>
+      <div class="step"><p>Name the response type for each: R1 is mitigate, R3 is mitigate-plus-avoid (parallel internal transfers so external delay cannot fully block the build).</p></div>
+      <div class="step"><p>Read a pair aloud. Room test: is the trigger observable? "The dictionary is bad" is a feeling; ">10% of columns undocumented" is a signal you can actually watch for.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Assemble the full 8-row register <span class="tag demo">★ 6 min · everyone assembles</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Fill the register table below from the canon: R1-R4 are HIGH, R5-R8 are MED. Each row needs an ID, the risk, its severity, a one-line mitigation, and a single owner.</p></div>
+      <div class="step"><p>Check the owners spread sensibly - governance risks to the Governance office, cost and vendor risks to the Cloud/Infra partner, data risks to Priya, hiring to the Sponsor. No single person owns everything.</p></div>
+      <div class="step"><p>Order the rows by severity so a reader sees the HIGH four first. This is the artifact Session 6 reviews at status; make it scannable.</p></div>
+    </div>
+    <table class="clean">
+      <thead><tr><th>ID</th><th>Risk</th><th>Severity</th><th>Mitigation</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>R1</td><td>Low-quality / incomplete data dictionary</td><td>HIGH</td><td>Independent profiling pass; treat handover as a draft</td><td>Priya (Head of D&amp;A)</td></tr>
+        <tr><td>R2</td><td>Archive completeness &amp; reconciliation gaps</td><td>HIGH</td><td>Row-count + checksum reconciliation against source</td><td>Marcus (PMO) + source dev</td></tr>
+        <tr><td>R3</td><td>Critical hiring delayed - blocks all tech milestones</td><td>HIGH</td><td>Parallel internal-transfer track from day one</td><td>Executive Sponsor</td></tr>
+        <tr><td>R4</td><td>Governance not defined before architecture</td><td>HIGH</td><td>Governance sign-off as a hard gate before M2</td><td>Governance office</td></tr>
+        <tr><td>R5</td><td>Scope creep - "100%" vs a curated set</td><td>MED</td><td>Peer-benchmark working set + change control</td><td>Priya (Head of D&amp;A)</td></tr>
+        <tr><td>R6</td><td>Cloud cost blowout on 80 TB + reprocessing</td><td>MED</td><td>Tiered storage, budget alerts, committed-spend deal</td><td>Cloud/Infra partner</td></tr>
+        <tr><td>R7</td><td>Over-reliance on a single infra/vendor dependency</td><td>MED</td><td>Exit plan + portable infrastructure-as-code</td><td>Cloud/Infra partner</td></tr>
+        <tr><td>R8</td><td>Network security &amp; data residency not formalised</td><td>MED</td><td>Residency + network-security baseline sign-off</td><td>Governance office</td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip">
+      <strong>Keep this artifact</strong>
+      This 8-row register joins your charter (Session 1), milestone map (Session 2), and dependency graph (Session 3) in the growing PMO pack. It is reviewed at every status meeting in Session 6 - so build it to be read, not filed.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Build a 6-row register for a real project at your desk</strong> - score each on probability x impact, tag the severity, and give every row a mitigation, an owner, and a trigger.</li>
+      <li><strong>Find your owner-with-no-authority row:</strong> look for a risk you have "assigned" to someone who cannot actually pull the lever, and re-owner it correctly.</li>
+      <li><strong>Read the self-study cards</strong> above: risk vs issue vs assumption, the owner-with-no-authority trap, risk burn-down over the project.</li>
+      <li><strong>Optional deep end:</strong> skim a RAID-log primer or the PMI risk-management process - both extend today's register into a full risk lifecycle.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · How is a risk's severity score derived?</p>
+      <button class="qopt" type="button">A · By counting how many people are worried about it</button>
+      <button class="qopt" type="button">B · By multiplying its probability score by its impact score</button>
+      <button class="qopt" type="button">C · By how expensive the mitigation is</button>
+      <p class="qwhy">Severity = probability x impact. Both are scored on the same scale (1-5 works well), and the product ranks the register so you review the top-right, most-critical risks first.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What is a trigger in a risk row?</p>
+      <button class="qopt" type="button">A · The person accountable for the risk</button>
+      <button class="qopt" type="button">B · The action you take to reduce the risk</button>
+      <button class="qopt" type="button">C · The observable signal that tells you the risk is materialising</button>
+      <p class="qwhy">A trigger is the early-warning signal - like "profiling finds &gt;10% of columns undocumented" for R1. It must be observable, so the owner watches for a fact, not a feeling.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · What is the difference between a risk and an issue?</p>
+      <button class="qopt" type="button">A · A risk is an uncertain future event; an issue has already happened and needs fixing now</button>
+      <button class="qopt" type="button">B · A risk is small; an issue is large</button>
+      <button class="qopt" type="button">C · There is no difference - the words are interchangeable</button>
+      <p class="qwhy">Risks are managed with probability, mitigation and triggers because they might happen. Issues are already real, so they are fixed now. Managing a live issue as a "maybe" is the classic RAID mistake.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This course teaches the working 80% of each tool and cites the canon - full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Risk register / risk management (PMI)</span><span class="note">register anatomy, review process - Part 1 + Apply-along 3</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Probability x impact scoring</span><span class="note">1-5 scales, severity = product, matrix - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Mitigation strategies (mitigate/avoid/transfer/accept)</span><span class="note">plus owner + trigger + escalation - Part 2 + Apply-along 2</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">RAID log (risks/assumptions/issues/dependencies)</span><span class="note">four quadrants, one example each - Part 3</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Risk burn-down &amp; review cadence</span><span class="note">self-study card, Part 3 - reviewed live in Session 6</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 4 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Risk</b><span>An uncertain future event with a probability and an impact. Not an issue (that is already real).</span></div>
+      <div class="cheat-item"><b>Severity</b><span>Probability x impact, on a shared 1-5 scale. Ranks the register; review top-right first.</span></div>
+      <div class="cheat-item"><b>A complete row</b><span>Risk · severity · mitigation · one owner · trigger · escalation. A score with no plan is just anxiety.</span></div>
+      <div class="cheat-item"><b>Four responses</b><span>Mitigate, avoid, transfer, accept. Name which one - and write acceptance down, never forget it.</span></div>
+      <div class="cheat-item"><b>RAID + cadence</b><span>Risks, Assumptions, Issues, Dependencies. Reviewed on a rhythm; every risk leaves with a verb.</span></div>
+      <div class="cheat-item"><b>Northwind so far</b><span>Charter, milestone map, dependency graph, and now the 8-row register (R1-R4 HIGH, R5-R8 MED).</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 4 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="05-ownership-and-raci.html">Next: Ownership &amp; RACI →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

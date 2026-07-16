@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 2 · Milestone architecture - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 2 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 2 of 6</div>
+    <h1>Milestone architecture: <span class="accent">turn priorities into a plan with proof</span></h1>
+    <p class="sub">Last session the charter named what matters. This one turns those priorities into a milestone map - not a task list, but a set of outcomes each carrying its own proof. You will learn the five-column milestone table, how to write success criteria you can actually check, and how to ladder M1 to M6 across the DW-BI-AI/ML lifecycle. Then you build Northwind's full milestone map in the next 22 minutes.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Core</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">Builds on Session 1</span>
+      <span class="chip time">45 min live + self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>From charter to plan</h2>
+    </div>
+    <p class="lede">The charter named the priorities - source data, infra, governance, hiring. That is the framing. Now you owe the board a plan: a sequence of milestones, each with a definition of done that a chairman could tick off without asking a single follow-up question. The trap is writing a task list ("load POS tables", "stand up Redshift") and calling it a plan. Tasks are activity; milestones are <strong>outcomes with proof</strong>. This session teaches the difference and gives you Northwind's <strong>M1-M6 milestone map</strong> - the artifact every later session builds on.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Northwind's M1-M6 milestone map: ten milestones and sub-milestones laddered across the Ingest -> Infra -> DW -> Discovery -> Production lifecycle, each with checkable success criteria, key metrics, and a primary dependency. This map is the input to Session 3's dependency graph and Session 4's risk register.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE MILESTONE TABLE ============ -->
+  <section class="section" id="table">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · the reusable skeleton</span>
+      <h2>The milestone table: five columns that run the build <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A milestone is an outcome with proof, not a task. "Ingest the archive" is a task - it could be 5% done or 95% done and nobody could tell. "Raw archive loaded, reconciled, and signed off" is a milestone - it is either true or it is not. Five columns turn every milestone into that yes/no test, and the same five columns work for M1 through M6.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anatomy of one milestone row for M1 raw archive load, showing the five columns: ID, milestone, success criteria, key metrics, and primary dependency">
+        <style>
+          .msT { font: 700 12.5px Inter, sans-serif; fill: #FFFFFF; }
+          .msH { font: 700 12px Inter, sans-serif; fill: #16202B; }
+          .msB { font: 400 11px Inter, sans-serif; fill: #FFFFFF; opacity: .92; }
+          .msX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- header row -->
+        <rect x="30" y="26" width="70" height="34" rx="7" fill="#0B2A45"/>
+        <text class="msT" x="46" y="47">ID</text>
+        <rect x="104" y="26" width="166" height="34" rx="7" fill="#0B2A45"/>
+        <text class="msT" x="120" y="47">Milestone</text>
+        <rect x="274" y="26" width="226" height="34" rx="7" fill="#0B2A45"/>
+        <text class="msT" x="290" y="47">Success criteria</text>
+        <rect x="504" y="26" width="176" height="34" rx="7" fill="#0B2A45"/>
+        <text class="msT" x="520" y="47">Key metrics</text>
+        <rect x="684" y="26" width="166" height="34" rx="7" fill="#0B2A45"/>
+        <text class="msT" x="700" y="47">Primary dependency</text>
+        <!-- data row: M1 -->
+        <rect x="30" y="66" width="70" height="150" rx="7" fill="#14507D"/>
+        <text class="msT" x="46" y="146" style="font-size:15px">M1</text>
+        <rect x="104" y="66" width="166" height="150" rx="7" fill="#2E77AB"/>
+        <text class="msB" x="120" y="132">Raw archive load</text>
+        <text class="msB" x="120" y="150">into the data lake</text>
+        <rect x="274" y="66" width="226" height="150" rx="7" fill="#2E77AB"/>
+        <text class="msB" x="290" y="98">100% agreed data loaded</text>
+        <text class="msB" x="290" y="120">source-to-target recon done</text>
+        <text class="msB" x="290" y="142">no unexplained Tier-1 loss</text>
+        <text class="msB" x="290" y="164">migration evidence signed off</text>
+        <rect x="504" y="66" width="176" height="150" rx="7" fill="#2E77AB"/>
+        <text class="msB" x="520" y="120">reconciliation pass rate</text>
+        <text class="msB" x="520" y="142">row-count delta by table</text>
+        <rect x="684" y="66" width="166" height="150" rx="7" fill="#8FBCDD"/>
+        <text class="msH" x="700" y="130">Infra landing zone</text>
+        <text class="msH" x="700" y="150">(M2) + source KT</text>
+        <rect x="30" y="270" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="msX" x="52" y="281">Every column answers a board question: what, done-when, measured-how, blocked-by. Fill all five or it is still a task.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one milestone row filled in for Northwind's M1</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Milestone vs task<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A task is a unit of activity someone does. A milestone is a state the project reaches - verifiable, binary, and meaningful to a stakeholder. The five columns force the distinction, because a task cannot fill them honestly.</p>
+        <ul>
+          <li><strong>ID</strong> - a stable handle (M1, M1.1) so dependencies and risks can point at it later.</li>
+          <li><strong>Milestone</strong> - the outcome, phrased as a reached state ("raw archive loaded"), not an activity ("loading data").</li>
+          <li><strong>Success criteria</strong> - the yes/no conditions that make it done. If you cannot tick them, it is not done.</li>
+          <li><strong>Key metrics</strong> - the numbers that evidence the criteria (reconciliation pass rate, freshness lag).</li>
+          <li><strong>Primary dependency</strong> - the one thing that must be true before this milestone can even start. This column becomes Session 3's graph.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The done-when test</strong>
+          Read your milestone and ask "how would a chairman know this is done without trusting my word?" If the answer is in the success-criteria and metrics columns, it is a milestone. If the answer is "you would have to watch me work", it is a task.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>WBS: decomposing a milestone into deliverables<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Under each milestone sits a work-breakdown structure (WBS): the deliverables and tasks that produce the outcome. The milestone is the checkpoint; the WBS is how you get there. PMBOK keeps them in separate layers on purpose - the board reads milestones, the team works the WBS.</p>
+        <table class="clean">
+          <thead><tr><th>Layer</th><th>Example (M1)</th><th>Who reads it</th></tr></thead>
+          <tbody>
+            <tr><td>Milestone</td><td>Raw archive loaded &amp; reconciled</td><td>Sponsor, board</td></tr>
+            <tr><td>Deliverable</td><td>File manifest, reconciliation report</td><td>PMO, tech owner</td></tr>
+            <tr><td>Task</td><td>Extract POS tables, hash-compare row counts</td><td>Data engineers</td></tr>
+          </tbody>
+        </table>
+        <p>Keep the milestone map free of tasks. When someone asks to add "write the extract script" as a milestone, that is the signal the layers have collapsed.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: SUCCESS CRITERIA ============ -->
+  <section class="section" id="criteria">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · done-when, in writing</span>
+      <h2>Success criteria you can actually check <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">The success-criteria column is where most milestone maps quietly fail. "Data loaded successfully" reads fine in a slide and means nothing in a review - successful by whose measure? SMART criteria (specific, measurable, achievable, relevant, time-bound) turn a warm sentence into a checkbox. The test: could two people disagree about whether it is met? If yes, rewrite it.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vague success criteria in grey boxes on the left versus measurable criteria in blue boxes on the right">
+        <style>
+          .scH { font: 700 14px Inter, sans-serif; fill: #16202B; }
+          .scT { font: 600 12px Inter, sans-serif; fill: #16202B; }
+          .scG { font: 600 12px Inter, sans-serif; fill: #FFFFFF; }
+          .scB { font: 600 11.5px Inter, sans-serif; fill: #B42318; }
+          .scX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <text class="scH" x="30" y="32">✗ Vague - two people could disagree</text>
+        <rect x="30" y="46" width="380" height="34" rx="8" fill="#AEBAC6"/>
+        <text class="scT" x="46" y="68">"Data loaded successfully"</text>
+        <rect x="30" y="88" width="380" height="34" rx="8" fill="#AEBAC6"/>
+        <text class="scT" x="46" y="110">"Pipeline runs fine"</text>
+        <rect x="30" y="130" width="380" height="34" rx="8" fill="#AEBAC6"/>
+        <text class="scT" x="46" y="152">"Reasonably fresh data"</text>
+        <text class="scB" x="30" y="188">No number, no owner, no test - undone forever</text>
+        <line x1="440" y1="24" x2="440" y2="210" stroke="#AEBAC6" stroke-width="2"/>
+        <text class="scH" x="470" y="32">✓ Measurable - a clear yes/no</text>
+        <rect x="470" y="46" width="380" height="34" rx="8" fill="#14507D"/>
+        <text class="scG" x="486" y="68">100% agreed data loaded, recon signed off</text>
+        <rect x="470" y="88" width="380" height="34" rx="8" fill="#14507D"/>
+        <text class="scG" x="486" y="110">Daily incremental &gt;=98% SLA, D+1</text>
+        <rect x="470" y="130" width="380" height="34" rx="8" fill="#14507D"/>
+        <text class="scG" x="486" y="152">Freshness checks pass every morning</text>
+        <text class="scT" x="470" y="188" style="fill:#14507D">A number, a threshold, a check that runs</text>
+        <rect x="30" y="240" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="scX" x="52" y="251">Rewrite rule: if it has no number, no threshold, and nothing that runs to prove it, it is not a success criterion yet.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - vague criteria versus criteria that pass the done-when test</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>SMART criteria, applied to Northwind<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Take the two Northwind milestones everyone touches first and write their criteria the SMART way:</p>
+        <ul>
+          <li><strong>M1 - Raw archive load.</strong> 100% of agreed data loaded; source-to-target reconciliation complete; no unexplained Tier-1 data loss; migration evidence signed off. Each line is either true or false at review time - nothing to argue about.</li>
+          <li><strong>M1.1 - Daily incremental (D+1).</strong> Pipeline meets a &gt;=98% SLA; daily freshness checks run and pass; late or failed loads raise an alert with an owner. "Reasonably fresh" becomes a threshold and a check.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>The phrase that saves reviews is "signed off". A criterion like "migration evidence signed off" names both the artifact (the evidence pack) and the act (someone accountable signs). It moves the milestone from "the engineers think it is done" to "the accountable owner accepted it" - which is the only definition of done a board trusts.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Leading vs lagging metrics<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Key metrics come in two flavours. Lagging metrics confirm an outcome after the fact (reconciliation pass rate at cutover). Leading metrics predict it early enough to act (daily freshness lag creeping up before the SLA breaks). A good milestone carries at least one of each - one to prove done, one to warn early.</p>
+        <ul>
+          <li><strong>Lagging (proof):</strong> % agreed data loaded, row-count delta by table, certified-dataset count.</li>
+          <li><strong>Leading (early warning):</strong> freshness lag trend, pipeline failure rate, open reconciliation exceptions.</li>
+          <li><strong>The pairing habit:</strong> when a lagging metric finally moves, it is often too late to react - so pair it with a leading one you watch weekly.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: LADDER M1-M6 ============ -->
+  <section class="section" id="ladder">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · the spine of the build</span>
+      <h2>Laddering M1 to M6 across the lifecycle <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Northwind's build follows one lifecycle - Ingest, then Infra, then DW construction, then Discovery, then Production. The milestone map is that lifecycle made concrete: six numbered milestones, each landing in a stage, with sub-milestones (M1.1, M1.2, M2.1, M5.2) that carry work too specific to fold into their parent. Read the ladder left to right and you read the whole project.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Horizontal roadmap of milestones M1 to M6 rising across five lifecycle bands: ingest, infra, DW, discovery, and production">
+        <style>
+          .ldBand { font: 700 11px Inter, sans-serif; fill: #5C6B7A; }
+          .ldT { font: 700 12.5px Inter, sans-serif; fill: #FFFFFF; }
+          .ldS { font: 400 10.5px Inter, sans-serif; fill: #FFFFFF; opacity: .9; }
+          .ldSub { font: 600 10.5px Inter, sans-serif; fill: #16202B; }
+          .ldX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- lifecycle band labels -->
+        <text class="ldBand" x="40" y="24">INGEST</text>
+        <text class="ldBand" x="220" y="24">INFRA</text>
+        <text class="ldBand" x="400" y="24">DW BUILD</text>
+        <text class="ldBand" x="560" y="24">DISCOVERY</text>
+        <text class="ldBand" x="740" y="24">PRODUCTION</text>
+        <line x1="40" y1="32" x2="850" y2="32" stroke="#AEBAC6" stroke-width="1"/>
+        <!-- ascending main milestones -->
+        <rect x="40" y="250" width="130" height="52" rx="10" fill="#0B2A45"/>
+        <text class="ldT" x="54" y="274">M1 Raw load</text>
+        <text class="ldS" x="54" y="291">archive to lake</text>
+        <rect x="210" y="208" width="130" height="52" rx="10" fill="#14507D"/>
+        <text class="ldT" x="224" y="232">M2 Infra</text>
+        <text class="ldS" x="224" y="249">landing zone</text>
+        <rect x="380" y="150" width="130" height="52" rx="10" fill="#2E77AB"/>
+        <text class="ldT" x="394" y="174">M4 Gov. DW</text>
+        <text class="ldS" x="394" y="191">silver/gold</text>
+        <rect x="380" y="250" width="130" height="40" rx="10" fill="#2E77AB"/>
+        <text class="ldT" x="394" y="275">M3 Migration</text>
+        <rect x="550" y="120" width="130" height="52" rx="10" fill="#2E77AB"/>
+        <text class="ldT" x="564" y="144">M5 Explore</text>
+        <text class="ldS" x="564" y="161">+ dictionary</text>
+        <rect x="720" y="70" width="130" height="52" rx="10" fill="#8FBCDD"/>
+        <text class="ldSub" x="734" y="94">M6 Production</text>
+        <text class="ldSub" x="734" y="111" style="font-weight:400">BI + DS + AI/ML</text>
+        <!-- sub-milestones -->
+        <rect x="40" y="312" width="130" height="26" rx="7" fill="#EAF2F8"/>
+        <text class="ldSub" x="54" y="329">M1.1 daily · M1.2 SIT</text>
+        <rect x="210" y="272" width="130" height="26" rx="7" fill="#EAF2F8"/>
+        <text class="ldSub" x="224" y="289">M2.1 critical hires</text>
+        <rect x="550" y="184" width="130" height="26" rx="7" fill="#EAF2F8"/>
+        <text class="ldSub" x="564" y="201">M5.2 product pool</text>
+        <!-- ascending connector -->
+        <path d="M170,262 L210,234 M340,222 L380,176 M510,162 L550,146 M680,134 L720,96" stroke="#AEBAC6" stroke-width="2" fill="none" marker-end="url(#ldArr)"/>
+        <defs>
+          <marker id="ldArr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <rect x="40" y="346" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="ldX" x="62" y="357">The ladder rises because each stage is only trustworthy once the one before it is signed off. That ordering is Session 3.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Northwind's M1-M6 ladder across the five lifecycle stages</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Sub-milestones and why they exist<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Not every outcome fits neatly under a single numbered milestone. A sub-milestone carries work that is real, checkable, and dependency-bearing, but too specific to fold into its parent without hiding it. Northwind has four that matter:</p>
+        <ul>
+          <li><strong>M1.1 Daily incremental (D+1)</strong> - the ongoing pipeline after the one-time archive load. Different SLA, different failure modes, so it earns its own row.</li>
+          <li><strong>M1.2 SIT/UAT environment</strong> - an enabler: the data team cannot test migration without a safe environment. Invisible to the board, blocking to the build.</li>
+          <li><strong>M2.1 Critical roles hired &amp; onboarded</strong> - the hard gate from Session 1, now a tracked milestone. No committed technical milestone until it lands.</li>
+          <li><strong>M5.2 Data product idea pool</strong> - the prioritised backlog that feeds M6. Discovery has to produce a ranked list, not just exploration.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>When to split off a sub-milestone</strong>
+          Split when the child has a different owner, a different success test, or its own dependency. M1.1 has a different SLA than M1; M2.1 gates milestones M2 does not. If a would-be sub-milestone shares all three with its parent, it is just a deliverable - keep it in the WBS.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Stage-gate go/no-go criteria<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Stage-gate governance puts a decision point between lifecycle stages: before Discovery starts, someone asks "is the DW actually certified enough to explore on?" A gate is a go/no-go review, not a milestone - it consumes the previous milestone's success criteria as its entry test.</p>
+        <ul>
+          <li><strong>Entry criteria:</strong> what must be true to pass the gate (M4 certified datasets exist before M5 exploration is trusted).</li>
+          <li><strong>The three verdicts:</strong> go (proceed), no-go (stop and fix), or conditional-go (proceed with named caveats and a review date).</li>
+          <li><strong>Who decides:</strong> the accountable owner plus governance - never the delivery team marking its own homework.</li>
+        </ul>
+        <p>Session 3 turns these gates into hard dependencies; here you just note where they sit on the ladder.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>Write M1's success criteria &amp; metrics <span class="tag demo">★ 7 min · everyone writes</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Start the row: ID = <strong>M1</strong>, milestone = "Raw archive loaded into the data lake". Phrase it as a reached state, not "loading the archive".</p></div>
+      <div class="step"><p>Two minutes: write the <strong>success criteria</strong> as a checklist - 100% agreed data loaded, source-to-target reconciliation complete, no unexplained Tier-1 data loss, migration evidence signed off. Each line must be answerable yes/no.</p></div>
+      <div class="step"><p>Write the <strong>key metrics</strong> that evidence those criteria: reconciliation pass rate and row-count delta by table. Add one leading metric (open reconciliation exceptions).</p></div>
+      <div class="step"><p>Read a volunteer's aloud - the room applies the done-when test: could two people disagree about whether M1 is met? If yes, tighten the wording.</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>Teams love to write "archive migrated" and move on. The word that earns its keep is "reconciled" - source-to-target reconciliation is the proof that nothing was silently dropped in an 80 TB move. On a real migration, the reconciliation report is the single artifact the board asks to see before signing M1 off.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Ladder the full M1-M6 map <span class="tag demo">★ 9 min · everyone drafts</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Lay out the six main milestones in lifecycle order: <strong>M1</strong> raw load (Ingest), <strong>M2</strong> cloud &amp; infra (Infra), <strong>M3</strong> legacy migration and <strong>M4</strong> governed DW build - silver/gold, certified (DW), <strong>M5</strong> raw exploration + data dictionary (Discovery), <strong>M6</strong> one-stop platform in production - BI + DS + AI/ML (Production).</p></div>
+      <div class="step"><p>For each, write one line of success criteria and one primary dependency. Keep them outcomes, not tasks - if a row starts with a verb like "build" or "load", reword it to the finished state.</p></div>
+      <div class="step"><p>Sanity-check the ladder: does each milestone only make sense once the one before it is signed off? Circle any that could run in parallel - you are pre-sketching Session 3.</p></div>
+      <div class="step"><p>Compare with a neighbor: did M4 (certified DW) land before M6 (AI/ML)? The first model ships only on certified, traceable data - if M6 floated earlier, discuss why that breaks.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Add the sub-milestones &amp; one gate <span class="tag demo">★ 6 min · everyone names</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Slot in the four sub-milestones under their parents: <strong>M1.1</strong> daily incremental (D+1) and <strong>M1.2</strong> SIT/UAT environment under M1; <strong>M2.1</strong> critical roles hired &amp; onboarded under M2; <strong>M5.2</strong> data product idea pool under M5.</p></div>
+      <div class="step"><p>For each sub-milestone, name why it split off - different owner, different success test, or its own dependency. If it shares all three with its parent, delete it back into the WBS.</p></div>
+      <div class="step"><p>Write ONE stage-gate go/no-go rule for the DW-to-Discovery boundary: "no M5 exploration is trusted until M4 certified datasets exist and governance signs off." Name the verdict options: go, no-go, conditional-go.</p></div>
+    </div>
+    <div class="callout tip">
+      <strong>Keep this artifact</strong>
+      Your M1-M6 milestone map - main milestones, four sub-milestones, success criteria, metrics, and primary dependencies - is the backbone of the PMO pack. Session 3 takes the primary-dependency column and turns it into Northwind's dependency graph and hard-gate list.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Milestone-map a real initiative from your desk</strong> - five columns, outcomes not tasks. Even a small project has three to five real milestones with checkable criteria.</li>
+      <li><strong>Rewrite your vaguest success criterion:</strong> find a "done successfully" line in an existing plan and turn it into a number, a threshold, and a check that runs.</li>
+      <li><strong>Read the self-study cards</strong> above: WBS decomposition, leading vs lagging metrics, and stage-gate go/no-go criteria.</li>
+      <li><strong>Optional deep end:</strong> skim the PMBOK milestone and WBS sections, or any stage-gate primer - both feed Sessions 3 and 4.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What is the difference between a milestone and a task?</p>
+      <button class="qopt" type="button">A · A milestone is bigger; a task is smaller - it is just about size</button>
+      <button class="qopt" type="button">B · A milestone is an outcome with verifiable proof; a task is a unit of activity</button>
+      <button class="qopt" type="button">C · There is no real difference - the words are interchangeable</button>
+      <p class="qwhy">A task ("load POS tables") is activity that could be any % done. A milestone ("archive loaded, reconciled, signed off") is a reached state that is either true or false. The five columns force that distinction.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What makes a success criterion measurable rather than vague?</p>
+      <button class="qopt" type="button">A · It sounds confident and uses positive language</button>
+      <button class="qopt" type="button">B · It is written by a senior person</button>
+      <button class="qopt" type="button">C · It has a number, a threshold, and a check that runs - two people cannot disagree about whether it is met</button>
+      <p class="qwhy">"Data loaded successfully" fails: successful by whose measure? "&gt;=98% SLA with daily freshness checks that pass" succeeds - it is a clear yes/no at review time.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Why do sub-milestones and stage-gates exist?</p>
+      <button class="qopt" type="button">A · Sub-milestones carry work with its own owner, test, or dependency; gates are go/no-go checks between stages</button>
+      <button class="qopt" type="button">B · They make the plan look more detailed for the board</button>
+      <button class="qopt" type="button">C · They replace the main milestones entirely</button>
+      <p class="qwhy">M1.1 has a different SLA than M1; M2.1 gates milestones M2 does not. A stage-gate consumes the prior milestone's criteria as an entry test - go, no-go, or conditional-go.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This course teaches the working 80% of each tool and cites the canon - full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Milestone &amp; deliverable discipline (PMI / PMBOK Guide)</span><span class="note">five-column table, outcome-with-proof, milestone vs task - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">SMART success criteria &amp; measurable metrics</span><span class="note">specific/measurable done-when tests, M1 and M1.1 examples - Part 2 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Stage-gate / phase-gate governance</span><span class="note">go/no-go criteria named here, built as hard gates in Session 3 - self-study card + Apply-along 3</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Work-breakdown structure (WBS)</span><span class="note">milestone -> deliverable -> task layering - self-study card, Part 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DW-BI-AI/ML lifecycle mapped to milestones</span><span class="note">the M1-M6 ladder across Ingest/Infra/DW/Discovery/Production - Part 3 + Apply-along 2</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 2 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Milestone table</b><span>Five columns: ID · Milestone · Success Criteria · Key Metrics · Primary Dependency. Fill all five or it is still a task.</span></div>
+      <div class="cheat-item"><b>Milestone vs task</b><span>A milestone is an outcome with proof (binary, verifiable). A task is activity. Use the done-when test.</span></div>
+      <div class="cheat-item"><b>SMART criteria</b><span>A number, a threshold, a check that runs. If two people could disagree it is met, rewrite it. "Signed off" beats "done".</span></div>
+      <div class="cheat-item"><b>M1-M6 ladder</b><span>Ingest -> Infra -> DW -> Discovery -> Production. M4 certified before M6 AI/ML - first model on traceable data only.</span></div>
+      <div class="cheat-item"><b>Sub-milestones</b><span>Split when the child has its own owner, test, or dependency: M1.1 daily, M1.2 SIT, M2.1 hires, M5.2 product pool.</span></div>
+      <div class="cheat-item"><b>Northwind so far</b><span>Charter drafted (S1); M1-M6 milestone map built. Session 3 turns the primary-dependency column into the dependency graph.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 2 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="01-frame-the-initiative.html">← Prev: Frame the initiative</a> &nbsp;·&nbsp; <a href="03-dependencies-and-gates.html">Next: Dependencies &amp; hard gates →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

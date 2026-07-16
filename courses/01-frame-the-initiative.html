@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 · Frame the initiative &amp; write the charter - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 1 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 1 of 6</div>
+    <h1>Frame the initiative: <span class="accent">write the charter before you build</span></h1>
+    <p class="sub">A big data mandate arrives as one sentence: "get all our data into a warehouse." The charter is how you turn that into a program people can actually run. You will learn the charter anatomy, the honest "interim vs final" position, and the P1-P4 priority model - then apply all three to Northwind, our running case, in the next 20 minutes.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Foundation</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">No prep needed</span>
+      <span class="chip time">45 min live + self-study</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why this course exists</h2>
+    </div>
+    <p class="lede">Data platform builds fail less from bad engineering than from bad framing: no clear scope, no owner, a "100%" mandate nobody sized, hires that never landed, governance decided after the architecture was poured. This course teaches the PMO tools that keep a big build honest - the way senior data and tech leaders actually use them, applied to one real-feeling project. Meet <strong>Northwind</strong>, a fictional retailer whose CEO wants all its data in a warehouse in 90 days. Over 6 sessions you will charter it, sequence it, de-risk it, and take it to production - artifact by artifact.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The three framing tools under every well-run build: the charter anatomy, the "interim vs final" honesty that protects you from an impossible deadline, and the P1-P4 priority model that names hiring as the hard dependency. Plus your first Northwind artifact: a one-page charter with context, position, and four priorities.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE MANDATE + HONEST POSITION ============ -->
+  <section class="section" id="mandate">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · the mandate meets reality</span>
+      <h2>Interim vs final: the honesty that saves the project <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Northwind's CEO says "100% of our data in the warehouse, 90 days." You cannot harmonise, consolidate, and quality-assure 80 TB across five source systems in 90 days - and pretending you can is how projects detonate in month three. The charter's first job is to state, in writing, the difference between the pragmatic interim step and the real deliverable.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The mandate versus the honest plan: a raw dump is an interim step, the governed platform is the real deliverable">
+        <style>
+          .mdT { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .mdH { font: 700 15px Inter, sans-serif; fill: #16202B; }
+          .mdX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .mdB { font: 600 12.5px Inter, sans-serif; fill: #B42318; }
+          .mdG { font: 600 12.5px Inter, sans-serif; fill: #14507D; }
+        </style>
+        <text class="mdH" x="40" y="35">✗ The mandate, taken literally</text>
+        <rect x="40" y="55" width="360" height="44" rx="10" fill="#AEBAC6"/>
+        <text class="mdT" x="58" y="82" style="fill:#16202B">"100% of data, governed, in 90 days"</text>
+        <text class="mdB" x="40" y="135">80 TB, 5 systems, no dictionary, no keys aligned</text>
+        <text class="mdB" x="40" y="158">= a promise you cannot keep = trust lost in month 3</text>
+        <line x1="440" y1="30" x2="440" y2="270" stroke="#AEBAC6" stroke-width="2"/>
+        <text class="mdH" x="480" y="35">✓ The charter's honest position</text>
+        <rect x="480" y="55" width="360" height="40" rx="10" fill="#0B2A45"/>
+        <text class="mdT" x="498" y="80">Two things, named separately</text>
+        <rect x="480" y="108" width="172" height="58" rx="10" fill="#2E77AB"/>
+        <text class="mdT" x="496" y="132">INTERIM</text>
+        <text class="mdT" x="496" y="150" style="font-weight:400;opacity:.9">raw dump to lake</text>
+        <rect x="668" y="108" width="172" height="58" rx="10" fill="#14507D"/>
+        <text class="mdT" x="684" y="132">FINAL</text>
+        <text class="mdT" x="684" y="150" style="font-weight:400;opacity:.9">governed platform</text>
+        <text class="mdG" x="480" y="195">Honour the deadline (dump lands in 90 days)</text>
+        <text class="mdG" x="480" y="217">and the truth (governed layer is a staged build)</text>
+        <rect x="40" y="255" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="mdX" x="62" y="266">Naming the interim step is not lowering the bar - it is the only way to actually clear it.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the same mandate, framed two ways</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>State the interim step in writing<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A raw dump into a staging lake is a legitimate first move - it honours the deadline and unblocks exploration. But without schema harmonisation, table consolidation, and quality assurance, the dump is not a queryable governed warehouse. The charter says this out loud so nobody mistakes month-one for done.</p>
+        <ul>
+          <li><strong>Interim:</strong> raw archive lands in the lake, with a file manifest, source mapping, date ranges, and known quality issues attached.</li>
+          <li><strong>Final:</strong> a governed platform - harmonised schemas, certified datasets, lineage, access tiers - built in stages on top.</li>
+          <li><strong>The position sentence:</strong> "We will honour the 90-day deadline with a raw dump, and we are transparent that this is a pragmatic interim step, not a final solution." Put it in the charter, verbatim.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The technical debt clause:</strong> mature data teams add one line - "the current approach is a direct consequence of years of deferred data ownership, and its technical debt will be addressed systematically in the rebuild." It reframes the rush as a known, managed liability rather than a hidden one. Boards trust the team that names its own debt.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why a written charter beats a verbal mandate<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>PMI's project charter exists for one reason: to formally authorise the project and give the manager a documented reference for scope, objectives, and stakeholders. A verbal mandate ("just get the data in") drifts - everyone remembers a different version. A charter freezes the shared version.</p>
+        <table class="clean">
+          <thead><tr><th>Verbal mandate</th><th>Written charter</th></tr></thead>
+          <tbody>
+            <tr><td>"Get all the data in"</td><td>Scope named: raw dump interim, governed platform final</td></tr>
+            <tr><td>Deadline remembered differently by each exec</td><td>90 days for the dump, staged milestones for the rest</td></tr>
+            <tr><td>No named owner when it slips</td><td>Sponsor, PMO, and technical owners on the page</td></tr>
+          </tbody>
+        </table>
+        <p>The charter is not bureaucracy - it is the thing you point at when priorities collide in month two.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: CHARTER ANATOMY ============ -->
+  <section class="section" id="anatomy">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · the document itself</span>
+      <h2>Charter anatomy: five blocks, one page <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A charter is not a plan (that is Session 2's milestones). It is the framing layer above the plan: what, why, who, and the rules of engagement. Five blocks fit on one page and answer every "wait, why are we doing this?" for the next six months.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Charter anatomy: context, position, priorities, risks, and ownership stacked into one page">
+        <style>
+          .caT { font: 700 13.5px Inter, sans-serif; fill: #FFFFFF; }
+          .caS { font: 400 12px Inter, sans-serif; fill: #FFFFFF; opacity: .9; }
+          .caX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .caN { font: 600 12px Inter, sans-serif; fill: #16202B; }
+        </style>
+        <rect x="40" y="24" width="800" height="40" rx="10" fill="#0B2A45"/>
+        <text class="caT" x="58" y="43">1 · CONTEXT</text>
+        <text class="caS" x="200" y="49">background, current situation, the mandate and its deadline</text>
+        <rect x="40" y="74" width="800" height="40" rx="10" fill="#14507D"/>
+        <text class="caT" x="58" y="93">2 · POSITION</text>
+        <text class="caS" x="200" y="99">interim vs final, what we will and will not promise</text>
+        <rect x="40" y="124" width="800" height="40" rx="10" fill="#2E77AB"/>
+        <text class="caT" x="58" y="143">3 · PRIORITIES</text>
+        <text class="caS" x="200" y="149">P1 data · P2 infra · P3 governance · P4 hiring (the hard one)</text>
+        <rect x="40" y="174" width="800" height="40" rx="10" fill="#2E77AB"/>
+        <text class="caT" x="58" y="193">4 · RISKS</text>
+        <text class="caS" x="200" y="199">the top few, severity-tagged (full register in Session 4)</text>
+        <rect x="40" y="224" width="800" height="40" rx="10" fill="#8FBCDD"/>
+        <text class="caT" x="58" y="243" style="fill:#16202B">5 · OWNERSHIP</text>
+        <text class="caS" x="200" y="249" style="fill:#16202B">sponsor, PMO, technical owners, escalation ceiling (RACI in Session 5)</text>
+        <rect x="40" y="288" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="caX" x="62" y="299">The charter points forward - blocks 3, 4, 5 each get a full session. It frames; the sessions detail.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the one-page charter you draft today</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The five blocks, plainly<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Context</strong> - where the data estate is today, the mandate, the deadline. Two or three sentences, no jargon.</li>
+          <li><strong>Position</strong> - the interim-vs-final honesty from Part 1. This block protects you.</li>
+          <li><strong>Priorities</strong> - the P1-P4 model (Part 3). The ordered list of what must be true.</li>
+          <li><strong>Risks</strong> - the top three to five, each tagged HIGH/MEDIUM. The full register comes in Session 4.</li>
+          <li><strong>Ownership</strong> - named sponsor, PMO, technical owners, and the escalation ceiling (who is the final "yes"). The full RACI comes in Session 5.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The one-page rule</strong>
+          If your charter runs past one page, you are writing the plan too early. The charter frames; Session 2 onward fills in the detail. A chairman should read it in ninety seconds and know what they authorised.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Charter vs scope statement vs plan<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three documents get confused. The charter <em>authorises and frames</em>. The scope statement <em>bounds</em> (in vs out). The plan <em>sequences</em> (milestones, dates, dependencies). You write them in that order, and each is shorter to write once the one above it exists.</p>
+        <ul>
+          <li><strong>Charter:</strong> "We are building a governed data platform; raw dump is interim." (this session)</li>
+          <li><strong>Scope:</strong> "In: 5 source systems, curated core datasets. Out: real-time streaming, external data buys." (touched in Session 6 sizing)</li>
+          <li><strong>Plan:</strong> "M1 raw load, M2 infra, M3 migration..." (Session 2)</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: P1-P4 PRIORITIES ============ -->
+  <section class="section" id="priorities">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · what must be true</span>
+      <h2>The P1-P4 model: hiring is the hard one <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Priorities are not a wish list - they are the conditions the build depends on, ordered. For a data platform, four recur on every project. Three are workstreams. The fourth, hiring, is a hard dependency: nothing technical can be committed until it lands. Naming that now prevents the most common failure mode of all.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four priority lanes: source data, cloud infrastructure, governance, and hiring as the hard dependency gating the others">
+        <style>
+          .prT { font: 700 13.5px Inter, sans-serif; fill: #FFFFFF; }
+          .prS { font: 400 11.5px Inter, sans-serif; fill: #FFFFFF; opacity: .9; }
+          .prH { font: 700 13px Inter, sans-serif; fill: #16202B; }
+          .prX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .prHot { font: 700 12px Inter, sans-serif; fill: #C9930A; }
+        </style>
+        <rect x="30" y="30" width="195" height="70" rx="12" fill="#0B2A45"/>
+        <text class="prT" x="46" y="58">P1 · Source data</text>
+        <text class="prS" x="46" y="78">schema docs, KT,</text>
+        <text class="prS" x="46" y="94">independent profiling</text>
+        <rect x="30" y="112" width="195" height="70" rx="12" fill="#14507D"/>
+        <text class="prT" x="46" y="140">P2 · Cloud &amp; infra</text>
+        <text class="prS" x="46" y="160">landing zone, IAM,</text>
+        <text class="prS" x="46" y="176">security - before ingest</text>
+        <rect x="30" y="194" width="195" height="70" rx="12" fill="#2E77AB"/>
+        <text class="prT" x="46" y="222">P3 · Governance</text>
+        <text class="prS" x="46" y="242">classification, PII,</text>
+        <text class="prS" x="46" y="258">retention - before arch</text>
+        <rect x="300" y="90" width="250" height="114" rx="14" fill="#C9930A"/>
+        <text class="prT" x="322" y="126" style="font-size:15px">P4 · Hiring</text>
+        <text class="prS" x="322" y="148">Head of Tech, Cloud Arch,</text>
+        <text class="prS" x="322" y="166">Data Arch, DEs, DBA</text>
+        <text class="prS" x="322" y="190" style="font-weight:700">= the HARD dependency</text>
+        <line x1="550" y1="147" x2="620" y2="147" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#prAh)"/>
+        <defs>
+          <marker id="prAh" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <rect x="625" y="112" width="225" height="70" rx="12" fill="#16202B"/>
+        <text class="prT" x="641" y="140">Every technical</text>
+        <text class="prT" x="641" y="160">milestone (M2 - M6)</text>
+        <text class="prHot" x="300" y="238">Hiring gates the build. Run it as a parallel track from day one -</text>
+        <text class="prHot" x="300" y="256">do not wait for external hiring to fail before trying internal transfers.</text>
+        <text class="prX" x="30" y="290">P1-P3 are workstreams you can push in parallel. P4 is a gate: no committed tech milestone until the critical hires land.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - three workstreams, one hard gate</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Reading the four priorities<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>P1 Source data &amp; KT:</strong> you need schema docs for every table and version, a formal knowledge-transfer programme (not ad hoc), and - because rushed dictionaries are always low quality - a planned independent profiling pass. Assume the handed-over dictionary is a starting point, not the truth.</li>
+          <li><strong>P2 Cloud &amp; infra:</strong> the landing zone (VPC, IAM, secrets, network security, compliance baseline) must exist <em>before</em> any data is ingested. Ingesting into an unhardened environment is a breach waiting to happen.</li>
+          <li><strong>P3 Governance:</strong> data classification, PII tagging, retention, and access tiers must be defined <em>before</em> the architecture is finalised - otherwise you rebuild it. Governance is a gate, not a cleanup phase.</li>
+          <li><strong>P4 Hiring:</strong> the hard dependency. No technical milestone is committed until the Data Architect and Data Engineering Lead are onboarded. Start hiring on day one, in parallel, and pursue internal transfers alongside external search.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The ordering trick</strong>
+          Order priorities by what blocks what, not by what feels urgent. Ingesting data feels urgent; but infra and governance gate it, and hiring gates them. The charter's priority list is really a dependency list in disguise - which is exactly why Session 3 exists.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why "governance before architecture" is non-negotiable<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>If you finalise the warehouse design before governance defines what is sensitive, where PII lives, and who may see which tier, you will re-architect: access controls bolted on late, PII discovered in a "public" schema, retention rules that force a re-partition. Every one of those is a rebuild, not a patch.</p>
+        <ul>
+          <li><strong>Classification first:</strong> what is public, internal, confidential, restricted - decided by the governance office, not the engineers.</li>
+          <li><strong>Then design to it:</strong> the architecture inherits the tiers as a constraint, so access controls are structural, not afterthoughts.</li>
+          <li><strong>This is a gate in Session 3:</strong> governance sign-off is a hard predecessor to the M2 infrastructure milestone.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>Write Northwind's context &amp; position <span class="tag demo">★ 7 min · everyone writes</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>The brief, read aloud: Northwind, $1.2B retailer, 380 stores + e-commerce + loyalty app, ~120 source tables across 5 systems, ~80 TB archive. CEO mandate: "100% of data in the warehouse, 90 days." No shared dictionary, keys not aligned, critical roles not yet hired.</p></div>
+      <div class="step"><p>Two minutes solo: write the <strong>context</strong> block - three sentences, plain language, ending on the mandate and its deadline.</p></div>
+      <div class="step"><p>Two minutes: write the <strong>position</strong> block. Use the template sentence: "We will honour the 90-day deadline with a raw dump into a staging lake, and we are transparent that this is a pragmatic interim step, not a final solution."</p></div>
+      <div class="step"><p>Add the technical-debt clause in one line. Read a volunteer's aloud - the room checks: does it honour the deadline AND the truth?</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>The position block is the single most reread paragraph in any data-platform charter. When month three arrives and someone asks "why can't I query the lake yet?", you do not defend - you point at the paragraph everyone signed. Writing it well now is cheap insurance.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Draft the P1-P4 priorities <span class="tag demo">★ 9 min · everyone drafts</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>For each priority, write one line of what Northwind specifically needs. P1: which 5 systems must hand over schema docs and KT? P2: AWS landing zone before ingest. P3: who signs classification and PII? P4: which roles are the critical hires?</p></div>
+      <div class="step"><p>Mark P4 as the hard dependency explicitly - the words "no technical milestone committed until critical hires land" go on the page.</p></div>
+      <div class="step"><p>Order-check: for each of P1-P3, ask "what blocks this?" If hiring or governance blocks it, note the arrow. You are sketching Session 3's dependency graph without knowing it yet.</p></div>
+      <div class="step"><p>Compare with a neighbor: did you both make hiring the hard one? If someone ranked "ingest data" first, discuss why that is the trap.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Name the objective &amp; the escalation ceiling <span class="tag demo">★ 6 min · everyone names</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Write ONE objective sentence for Northwind that a board would approve: "Deliver a governed data platform serving BI, analytics, and AI, built in stages on an interim raw dump that lands in 90 days."</p></div>
+      <div class="step"><p>Name the ownership skeleton: sponsor (cross-org + senior hiring), PMO (tracking + cadence), technical owner (acceptance criteria). One name or role per slot.</p></div>
+      <div class="step"><p>Name the <strong>escalation ceiling</strong> - the single final "yes" when two owners disagree. Without it, every conflict floats. Read one aloud; the room checks it is unambiguous.</p></div>
+    </div>
+    <div class="callout tip">
+      <strong>Keep this artifact</strong>
+      Your one-page charter - context, position, four priorities, objective, ownership skeleton - is the seed of the whole PMO pack. Session 2 turns the priorities into milestones; every session after upgrades one charter block into its full form.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Charter a real initiative from your desk</strong> - one page, five blocks. Even a small project has a context, a position, priorities, top risks, and an owner.</li>
+      <li><strong>Write your hardest "interim vs final" paragraph:</strong> pick something in your org that is being sold as "done" but is really interim, and write the honest position block for it.</li>
+      <li><strong>Read the self-study cards</strong> above: written charter vs verbal mandate, charter vs scope vs plan, governance before architecture.</li>
+      <li><strong>Optional deep end:</strong> skim the PMI project-charter section of the PMBOK Guide, or any RAID-log primer - both underpin Sessions 2-5.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · The CEO wants "100% governed data in 90 days." What does the charter's position block do?</p>
+      <button class="qopt" type="button">A · Promises the full governed platform in 90 days to keep the CEO happy</button>
+      <button class="qopt" type="button">B · Names the raw dump as an interim step and the governed platform as the staged final deliverable</button>
+      <button class="qopt" type="button">C · Refuses the mandate as impossible</button>
+      <p class="qwhy">Honour the deadline (dump lands) and the truth (governed layer is staged). Naming interim vs final is what protects the project in month three - it is neither over-promising nor refusing.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Among P1-P4, why is hiring called the "hard dependency"?</p>
+      <button class="qopt" type="button">A · Because hiring is the most expensive priority</button>
+      <button class="qopt" type="button">B · Because HR is hard to work with</button>
+      <button class="qopt" type="button">C · Because no technical milestone can be committed until the critical hires are onboarded</button>
+      <p class="qwhy">P1-P3 are workstreams you can push in parallel; P4 gates the technical milestones entirely. Start it day one, run it in parallel, and pursue internal transfers too.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Why must governance be defined BEFORE the architecture is finalised?</p>
+      <button class="qopt" type="button">A · Otherwise access tiers, PII handling, and retention become late rebuilds, not patches</button>
+      <button class="qopt" type="button">B · Because governance teams need something to do early</button>
+      <button class="qopt" type="button">C · It does not matter - governance can always be added later</button>
+      <p class="qwhy">Classification, PII, retention, and access tiers are structural constraints. Design to them and controls are built in; add them later and you re-architect. It is a hard gate in Session 3.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This course teaches the working 80% of each tool and cites the canon - full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Project charter (PMI / PMBOK Guide)</span><span class="note">five-block anatomy, authorise-and-frame role - Part 2 + Apply-along 3</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Interim vs final positioning (delivery practice)</span><span class="note">raw dump vs governed platform, technical-debt clause - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Priority / dependency model (P1-P4)</span><span class="note">hiring as hard dependency, governance-before-architecture - Part 3 + Apply-along 2</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Charter vs scope statement vs plan</span><span class="note">self-study card, Part 2 - scope returns in Session 6</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">RAID log (risks/assumptions/issues/dependencies)</span><span class="note">named here, built live in Sessions 3 &amp; 4</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 1 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Charter</b><span>Five blocks, one page: context, position, priorities, risks, ownership. It frames; the plan sequences.</span></div>
+      <div class="cheat-item"><b>Interim vs final</b><span>Name the raw dump as interim and the governed platform as staged-final. In writing. This paragraph protects you.</span></div>
+      <div class="cheat-item"><b>P1-P4</b><span>P1 data · P2 infra · P3 governance · P4 hiring. Three workstreams, one hard gate.</span></div>
+      <div class="cheat-item"><b>Hard dependency</b><span>No committed technical milestone until critical hires land. Start hiring day one, in parallel.</span></div>
+      <div class="cheat-item"><b>Governance gate</b><span>Classification, PII, retention, access tiers before the architecture is finalised - or you rebuild.</span></div>
+      <div class="cheat-item"><b>Northwind so far</b><span>Retail data platform, 90-day dump interim, staged governed build. Charter drafted; Session 2 builds the milestones.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 1 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="02-milestone-architecture.html">Next: Milestone architecture →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

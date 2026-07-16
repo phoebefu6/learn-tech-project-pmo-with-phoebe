@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 · Ownership &amp; RACI - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 5 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 5 of 6</div>
+    <h1>Ownership &amp; RACI: <span class="accent">make "who owns this" unambiguous</span></h1>
+    <p class="sub">Session 4 gave every risk an owner. Milestones and decisions need owners too - and on a build with internal teams and external partners, "who owns this?" is the question that stalls a project when nobody wrote it down. RACI answers it one letter at a time: Responsible, Accountable, Consulted, Informed. Today you build Northwind's RACI matrix, map the external parties, design the escalation, and learn the anti-patterns that quietly kill velocity.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Core</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">Builds on Session 4</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>From risk owners to role clarity</h2>
+    </div>
+    <p class="lede">Session 4 taught you that a risk owned by "the team" is owned by nobody. The same truth governs every activity on the build. When the raw load stalls, when governance has not signed off, when architecture is waiting - the first question is always "whose call is this?" RACI is the one-page answer: for each activity, exactly one letter per role, with a single accountable owner who cannot be shared. Today we fill it in for <strong>Northwind</strong>, internal seats and external partners together.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Northwind's RACI matrix - activities down the side, internal and external roles across the top, one clean letter in every cell and exactly one Accountable per row. Plus a working sense for the escalation ceiling and the three RACI anti-patterns (no A, many A, over-Consulted) that make ownership look documented while decisions quietly crawl.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: RACI ============ -->
+  <section class="section" id="raci">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · one letter per role per task</span>
+      <h2>RACI: one letter per role per task <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">RACI assigns each role one letter for each activity. <strong>R</strong>esponsible does the work. <strong>A</strong>ccountable is the single owner who answers for the outcome - only ever ONE per row. <strong>C</strong>onsulted gives two-way input before the work is done. <strong>I</strong>nformed gets a one-way update after. The grid below is Northwind's, four activities against six roles.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A RACI grid: four Northwind activities down the side, six roles across the top, each cell filled with R, A, C or I">
+        <style>
+          .rcH { font: 700 11.5px Inter, sans-serif; fill: #16202B; }
+          .rcL { font: 600 12px Inter, sans-serif; fill: #16202B; }
+          .rcC { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .rcCi { font: 700 14px Inter, sans-serif; fill: #16202B; }
+          .rcN { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+          .rcLg { font: 600 11.5px Inter, sans-serif; fill: #16202B; }
+        </style>
+        <!-- header role labels -->
+        <text class="rcH" x="245" y="60" text-anchor="middle">Sponsor</text>
+        <text class="rcH" x="355" y="60" text-anchor="middle">Head D&amp;A</text>
+        <text class="rcH" x="465" y="60" text-anchor="middle">PMO</text>
+        <text class="rcH" x="575" y="60" text-anchor="middle">Src dev</text>
+        <text class="rcH" x="685" y="60" text-anchor="middle">Cloud</text>
+        <text class="rcH" x="795" y="60" text-anchor="middle">Gov</text>
+        <!-- Row 1: M1 raw load -> I A R C R I -->
+        <text class="rcL" x="20" y="103">M1 raw load</text>
+        <rect x="192" y="78" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="245" y="105" text-anchor="middle">I</text>
+        <rect x="302" y="78" width="106" height="42" rx="6" fill="#C9930A"/><text class="rcC" x="355" y="105" text-anchor="middle">A</text>
+        <rect x="412" y="78" width="106" height="42" rx="6" fill="#14507D"/><text class="rcC" x="465" y="105" text-anchor="middle">R</text>
+        <rect x="522" y="78" width="106" height="42" rx="6" fill="#2E77AB"/><text class="rcC" x="575" y="105" text-anchor="middle">C</text>
+        <rect x="632" y="78" width="106" height="42" rx="6" fill="#14507D"/><text class="rcC" x="685" y="105" text-anchor="middle">R</text>
+        <rect x="742" y="78" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="795" y="105" text-anchor="middle">I</text>
+        <!-- Row 2: Governance sign-off -> I C I I I A -->
+        <text class="rcL" x="20" y="149">Governance sign-off</text>
+        <rect x="192" y="124" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="245" y="151" text-anchor="middle">I</text>
+        <rect x="302" y="124" width="106" height="42" rx="6" fill="#2E77AB"/><text class="rcC" x="355" y="151" text-anchor="middle">C</text>
+        <rect x="412" y="124" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="465" y="151" text-anchor="middle">I</text>
+        <rect x="522" y="124" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="575" y="151" text-anchor="middle">I</text>
+        <rect x="632" y="124" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="685" y="151" text-anchor="middle">I</text>
+        <rect x="742" y="124" width="106" height="42" rx="6" fill="#C9930A"/><text class="rcC" x="795" y="151" text-anchor="middle">A</text>
+        <!-- Row 3: Hiring panel -> A R C I I I -->
+        <text class="rcL" x="20" y="195">Hiring panel</text>
+        <rect x="192" y="170" width="106" height="42" rx="6" fill="#C9930A"/><text class="rcC" x="245" y="197" text-anchor="middle">A</text>
+        <rect x="302" y="170" width="106" height="42" rx="6" fill="#14507D"/><text class="rcC" x="355" y="197" text-anchor="middle">R</text>
+        <rect x="412" y="170" width="106" height="42" rx="6" fill="#2E77AB"/><text class="rcC" x="465" y="197" text-anchor="middle">C</text>
+        <rect x="522" y="170" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="575" y="197" text-anchor="middle">I</text>
+        <rect x="632" y="170" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="685" y="197" text-anchor="middle">I</text>
+        <rect x="742" y="170" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="795" y="197" text-anchor="middle">I</text>
+        <!-- Row 4: Architecture approval -> I A I C R C -->
+        <text class="rcL" x="20" y="241">Architecture approval</text>
+        <rect x="192" y="216" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="245" y="243" text-anchor="middle">I</text>
+        <rect x="302" y="216" width="106" height="42" rx="6" fill="#C9930A"/><text class="rcC" x="355" y="243" text-anchor="middle">A</text>
+        <rect x="412" y="216" width="106" height="42" rx="6" fill="#8FBCDD"/><text class="rcCi" x="465" y="243" text-anchor="middle">I</text>
+        <rect x="522" y="216" width="106" height="42" rx="6" fill="#2E77AB"/><text class="rcC" x="575" y="243" text-anchor="middle">C</text>
+        <rect x="632" y="216" width="106" height="42" rx="6" fill="#14507D"/><text class="rcC" x="685" y="243" text-anchor="middle">R</text>
+        <rect x="742" y="216" width="106" height="42" rx="6" fill="#2E77AB"/><text class="rcC" x="795" y="243" text-anchor="middle">C</text>
+        <!-- legend -->
+        <rect x="20" y="282" width="16" height="16" rx="3" fill="#14507D"/><text class="rcLg" x="42" y="295">R Responsible</text>
+        <rect x="170" y="282" width="16" height="16" rx="3" fill="#C9930A"/><text class="rcLg" x="192" y="295">A Accountable (one)</text>
+        <rect x="370" y="282" width="16" height="16" rx="3" fill="#2E77AB"/><text class="rcLg" x="392" y="295">C Consulted</text>
+        <rect x="510" y="282" width="16" height="16" rx="3" fill="#8FBCDD"/><text class="rcLg" x="532" y="295">I Informed</text>
+        <rect x="640" y="282" width="14" height="14" rx="3" fill="#FBF3DD"/><text class="rcN" x="662" y="294">Exactly one A per row.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Northwind's RACI, one A in every row</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The one-accountable rule<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The whole matrix hangs on one discipline: <strong>exactly one A per row</strong>. Responsible can be shared (two teams do the work), Consulted and Informed can be many. But Accountable is singular - the one person who answers for the outcome and makes the final call within that activity. Two A's mean a stand-off; zero A's mean an orphan.</p>
+        <ul>
+          <li><strong>R - Responsible:</strong> does the hands-on work. Can be more than one role.</li>
+          <li><strong>A - Accountable:</strong> owns the outcome, signs it off, one per row, no exceptions.</li>
+          <li><strong>C - Consulted:</strong> two-way input <em>before</em> the work - their view shapes it.</li>
+          <li><strong>I - Informed:</strong> one-way update <em>after</em> - kept in the loop, not asked.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Read every row for its A first</strong>
+          When you review a RACI, do not read left to right - scan the A column. If any row has no A or two A's, stop; that row will cause a fight or a stall the moment it matters. Everything else is detail.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>RACI vs RASCI / DACI variants<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>RACI is the base model; the variants add a letter for a specific gap. Use the simplest one that removes real confusion - extra letters that nobody enforces just add noise.</p>
+        <table class="clean">
+          <thead><tr><th>Model</th><th>Adds</th><th>Use when</th></tr></thead>
+          <tbody>
+            <tr><td>RACI</td><td>the four base roles</td><td>most projects, default choice</td></tr>
+            <tr><td>RASCI</td><td>S = Support (helps the R do the work)</td><td>large teams where "who assists" is unclear</td></tr>
+            <tr><td>DACI</td><td>D = Driver, focuses on a single decision</td><td>decision-heavy work, one call at a time</td></tr>
+          </tbody>
+        </table>
+        <p>For Northwind, plain RACI is enough - the one addition worth making explicit is that external partners get letters too, which we handle next.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: INTERNAL VS EXTERNAL ============ -->
+  <section class="section" id="internal-external">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · who is inside, who is across the fence</span>
+      <h2>Internal owners vs external cross-functional parties <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A data platform build is never all in-house. Northwind's RACI spans two lanes: internal seats who own outcomes, and external cross-functional parties who own deliverables you depend on but do not control. Mapping both - and being honest about which A's sit outside your own org - is what stops the "we assumed they were handling it" gap.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two lanes of roles: internal team and external cross-functional parties, each role with a one-line responsibility">
+        <style>
+          .lnH { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .lnT { font: 700 12.5px Inter, sans-serif; fill: #FFFFFF; }
+          .lnS { font: 400 11.5px Inter, sans-serif; fill: #FFFFFF; opacity: .92; }
+          .lnTi { font: 700 12.5px Inter, sans-serif; fill: #16202B; }
+          .lnSi { font: 400 11.5px Inter, sans-serif; fill: #16202B; opacity: .8; }
+          .lnN { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- Internal lane -->
+        <rect x="20" y="24" width="840" height="128" rx="14" fill="#EAF2F8"/>
+        <rect x="20" y="24" width="200" height="128" rx="14" fill="#0B2A45"/>
+        <text class="lnH" x="40" y="80">Internal</text>
+        <text class="lnH" x="40" y="100" style="font-size:12px;opacity:.85">own the outcomes</text>
+        <rect x="236" y="44" width="196" height="88" rx="10" fill="#14507D"/>
+        <text class="lnT" x="252" y="72">Sponsor</text>
+        <text class="lnS" x="252" y="92">cross-org align,</text>
+        <text class="lnS" x="252" y="108">senior hiring,</text>
+        <text class="lnS" x="252" y="124">escalation</text>
+        <rect x="444" y="44" width="196" height="88" rx="10" fill="#2E77AB"/>
+        <text class="lnT" x="460" y="72">Head of D&amp;A</text>
+        <text class="lnS" x="460" y="92">acceptance criteria,</text>
+        <text class="lnS" x="460" y="108">PMO planning</text>
+        <rect x="652" y="44" width="188" height="88" rx="10" fill="#2E77AB"/>
+        <text class="lnT" x="668" y="72">PMO execution</text>
+        <text class="lnS" x="668" y="92">tracking, cadence,</text>
+        <text class="lnS" x="668" y="108">risk register</text>
+        <!-- External lane -->
+        <rect x="20" y="176" width="840" height="128" rx="14" fill="#EAF2F8"/>
+        <rect x="20" y="176" width="200" height="128" rx="14" fill="#5C6B7A"/>
+        <text class="lnH" x="40" y="232">External</text>
+        <text class="lnH" x="40" y="252" style="font-size:12px;opacity:.85">own deliverables</text>
+        <rect x="236" y="196" width="196" height="88" rx="10" fill="#8FBCDD"/>
+        <text class="lnTi" x="252" y="224">Source dev</text>
+        <text class="lnSi" x="252" y="244">dictionary, ERDs,</text>
+        <text class="lnSi" x="252" y="260">keys, clarifications</text>
+        <rect x="444" y="196" width="196" height="88" rx="10" fill="#8FBCDD"/>
+        <text class="lnTi" x="460" y="224">Cloud / infra partner</text>
+        <text class="lnSi" x="460" y="244">landing zone, VPC,</text>
+        <text class="lnSi" x="460" y="260">IAM baseline</text>
+        <rect x="652" y="196" width="188" height="88" rx="10" fill="#8FBCDD"/>
+        <text class="lnTi" x="668" y="224">Governance office</text>
+        <text class="lnSi" x="668" y="244">classification, PII,</text>
+        <text class="lnSi" x="668" y="260">retention, lineage</text>
+        <rect x="20" y="316" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="lnN" x="42" y="327">External parties still get RACI letters - most own an A on their own deliverable.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - two lanes: internal seats and external partners</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Mapping external accountability<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The instinct is to make every A internal - "we own everything." It is wrong and it is dangerous. If the source dev team owns the data dictionary, they are Accountable for it; pretending Priya owns it means nobody chases the real deliverable and the gap surfaces in month three.</p>
+        <ul>
+          <li><strong>Source dev teams (external)</strong> own the dictionary, ERDs, keys, and table clarifications. They are Accountable for those deliverables; you are Consulted and Informed.</li>
+          <li><strong>Cloud / infra partner (external)</strong> owns the landing zone, VPC, IAM, and security baseline. Accountable for the environment; you set the requirements.</li>
+          <li><strong>Governance office (external to the delivery team)</strong> owns classification, PII policy, retention, and lineage. Accountable for the sign-off that gates M2.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>When an external party owns an A, the RACI is only half the tool - the other half is a written expectation (an SLA, a due date, a definition of done) that the internal PMO tracks. RACI names the owner; the delivery agreement makes the ownership enforceable across an org boundary you cannot manage directly.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Knowledge transfer as a shared responsibility<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Knowledge transfer is the one activity that genuinely spans the boundary - the source dev teams hold the knowledge, the internal data team needs it. Getting the RACI right here prevents the classic KT failure where handover happens once, informally, and is gone the moment the source team moves on.</p>
+        <ul>
+          <li><strong>Source dev = Responsible</strong> for delivering the walkthroughs, docs, and answers.</li>
+          <li><strong>Head of D&amp;A = Accountable</strong> that KT actually lands - not "was scheduled", but that the receiving team can operate the data.</li>
+          <li><strong>PMO = Consulted / tracking</strong> that the KT programme is formal and evidenced, not a single ad-hoc call.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: ESCALATION + ANTI-PATTERNS ============ -->
+  <section class="section" id="escalation">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · the final yes, and the traps</span>
+      <h2>Escalation &amp; the RACI anti-patterns <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">RACI names owners within an activity; escalation names who breaks a tie when owners disagree or a decision sits above the activity. And the matrix itself has failure modes - four anti-patterns that make ownership look documented while decisions quietly stall. Here are three, each with its fix.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three before-and-after RACI rows: no accountable fixed, many accountable collapsed to one, and over-consulted trimmed">
+        <style>
+          .apL { font: 700 12px Inter, sans-serif; fill: #16202B; }
+          .apLx { font: 400 10.5px Inter, sans-serif; fill: #B42318; }
+          .apLg { font: 400 10.5px Inter, sans-serif; fill: #14507D; }
+          .apB { font: 700 12px Inter, sans-serif; fill: #B42318; }
+          .apC { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .apCi { font: 700 12px Inter, sans-serif; fill: #16202B; }
+          .apH { font: 700 11px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <text class="apH" x="240" y="34">Before</text>
+        <text class="apH" x="640" y="34">After</text>
+        <!-- Row 1: no A -->
+        <text class="apL" x="20" y="66">1 · No A</text>
+        <text class="apLx" x="20" y="84">nobody owns</text>
+        <rect x="180" y="48" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="201" y="71" text-anchor="middle">R</text>
+        <rect x="226" y="48" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="247" y="71" text-anchor="middle">C</text>
+        <rect x="272" y="48" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="293" y="71" text-anchor="middle">I</text>
+        <rect x="318" y="48" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="339" y="71" text-anchor="middle">R</text>
+        <line x1="400" y1="65" x2="470" y2="65" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#apArrow)"/>
+        <rect x="560" y="48" width="42" height="34" rx="5" fill="#14507D"/><text class="apC" x="581" y="71" text-anchor="middle">R</text>
+        <rect x="606" y="48" width="42" height="34" rx="5" fill="#C9930A"/><text class="apC" x="627" y="71" text-anchor="middle">A</text>
+        <rect x="652" y="48" width="42" height="34" rx="5" fill="#8FBCDD"/><text class="apCi" x="673" y="71" text-anchor="middle">I</text>
+        <rect x="698" y="48" width="42" height="34" rx="5" fill="#8FBCDD"/><text class="apCi" x="719" y="71" text-anchor="middle">I</text>
+        <text class="apLg" x="756" y="70">add one A</text>
+        <!-- Row 2: many A -->
+        <text class="apL" x="20" y="160">2 · Many A</text>
+        <text class="apLx" x="20" y="178">all own = none</text>
+        <rect x="180" y="142" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="201" y="165" text-anchor="middle">A</text>
+        <rect x="226" y="142" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="247" y="165" text-anchor="middle">A</text>
+        <rect x="272" y="142" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="293" y="165" text-anchor="middle">A</text>
+        <rect x="318" y="142" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="339" y="165" text-anchor="middle">R</text>
+        <line x1="400" y1="159" x2="470" y2="159" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#apArrow)"/>
+        <rect x="560" y="142" width="42" height="34" rx="5" fill="#C9930A"/><text class="apC" x="581" y="165" text-anchor="middle">A</text>
+        <rect x="606" y="142" width="42" height="34" rx="5" fill="#2E77AB"/><text class="apC" x="627" y="165" text-anchor="middle">C</text>
+        <rect x="652" y="142" width="42" height="34" rx="5" fill="#8FBCDD"/><text class="apCi" x="673" y="165" text-anchor="middle">I</text>
+        <rect x="698" y="142" width="42" height="34" rx="5" fill="#14507D"/><text class="apC" x="719" y="165" text-anchor="middle">R</text>
+        <text class="apLg" x="756" y="164">one A only</text>
+        <!-- Row 3: over-Consulted -->
+        <text class="apL" x="20" y="254">3 · Over-C</text>
+        <text class="apLx" x="20" y="272">decisions crawl</text>
+        <rect x="180" y="236" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="201" y="259" text-anchor="middle">A</text>
+        <rect x="226" y="236" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="247" y="259" text-anchor="middle">C</text>
+        <rect x="272" y="236" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="293" y="259" text-anchor="middle">C</text>
+        <rect x="318" y="236" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="339" y="259" text-anchor="middle">C</text>
+        <rect x="364" y="236" width="42" height="34" rx="5" fill="#AEBAC6"/><text class="apB" x="385" y="259" text-anchor="middle">C</text>
+        <line x1="440" y1="253" x2="470" y2="253" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#apArrow)"/>
+        <rect x="560" y="236" width="42" height="34" rx="5" fill="#C9930A"/><text class="apC" x="581" y="259" text-anchor="middle">A</text>
+        <rect x="606" y="236" width="42" height="34" rx="5" fill="#2E77AB"/><text class="apC" x="627" y="259" text-anchor="middle">C</text>
+        <rect x="652" y="236" width="42" height="34" rx="5" fill="#8FBCDD"/><text class="apCi" x="673" y="259" text-anchor="middle">I</text>
+        <rect x="698" y="236" width="42" height="34" rx="5" fill="#8FBCDD"/><text class="apCi" x="719" y="259" text-anchor="middle">I</text>
+        <text class="apLg" x="756" y="258">trim C to I</text>
+        <defs>
+          <marker id="apArrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <rect x="20" y="300" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="apH" x="42" y="311" style="font-size:12px">Grey + red = the broken row; the blue-ramp row is the fix.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - three RACI anti-patterns and their fixes</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Designing escalation paths<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Escalation is the answer to "what happens when the A's disagree, or the call is bigger than any single activity?" It is a short, named ladder - not a vague "raise it to management." For Northwind the ceiling is the CEO, who set the mandate and is the final yes.</p>
+        <ul>
+          <li><strong>Name the ceiling:</strong> the single final decision-maker. For Northwind that is the CEO; the Executive Sponsor is the step below.</li>
+          <li><strong>Name the rungs:</strong> activity owner (A) &rarr; Head of D&amp;A &rarr; Executive Sponsor &rarr; CEO. Each rung is a real person who can actually decide.</li>
+          <li><strong>Set the trigger to escalate:</strong> a decision stuck past a defined point, or a risk trigger firing (from Session 4), moves up one rung - it does not float.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Escalation is not failure</strong>
+          A healthy project escalates a few decisions on purpose - the ones genuinely above the activity owner's authority. What kills projects is the decision that needed escalating and instead sat in a "we're aligning" limbo for three weeks.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The over-Consulted slowdown<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Of the four anti-patterns, over-Consulted is the sneakiest because it looks like good inclusion. Every stakeholder gets a C, so every decision waits on every voice, and a two-day call becomes a two-week round-robin. The matrix is "complete" and the project is stuck.</p>
+        <ul>
+          <li><strong>Consulted means two-way input before the work</strong> - reserve it for roles whose view genuinely changes the outcome.</li>
+          <li><strong>Demote the rest to Informed:</strong> people who need to know but not to weigh in get an I, and the decision keeps moving.</li>
+          <li><strong>The test:</strong> if a Consulted role has never once changed a decision, it should have been Informed. Count your C's per activity - a column of them is a red flag.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>Fill RACI for four Northwind activities <span class="tag demo">★ 7 min · everyone fills</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Take the four activities: M1 raw load, governance sign-off, hiring panel, architecture approval. For each, assign every internal role (Sponsor, Head of D&amp;A, PMO) one letter.</p></div>
+      <div class="step"><p>Enforce the rule as you go: <strong>exactly one A per row</strong>. If a row has two A's, argue it out until one owner stands; if it has none, you have found an orphan.</p></div>
+      <div class="step"><p>Fill the table below, then scan the A column top to bottom - it should read Head D&amp;A, Gov, Sponsor, Head D&amp;A. One clear owner per activity.</p></div>
+    </div>
+    <table class="clean">
+      <thead><tr><th>Activity</th><th>Sponsor</th><th>Head D&amp;A</th><th>PMO</th><th>Src dev</th><th>Cloud</th><th>Gov</th></tr></thead>
+      <tbody>
+        <tr><td>M1 raw load</td><td>I</td><td>A</td><td>R</td><td>C</td><td>R</td><td>I</td></tr>
+        <tr><td>Governance sign-off</td><td>I</td><td>C</td><td>I</td><td>I</td><td>I</td><td>A</td></tr>
+        <tr><td>Hiring panel</td><td>A</td><td>R</td><td>C</td><td>I</td><td>I</td><td>I</td></tr>
+        <tr><td>Architecture approval</td><td>I</td><td>A</td><td>I</td><td>C</td><td>R</td><td>C</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Add the external parties to the grid <span class="tag demo">★ 9 min · everyone extends</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Add three external columns: source dev team, cloud / infra partner, governance office. These are the parties you depend on but do not manage directly.</p></div>
+      <div class="step"><p>Give each their real A: source dev is Accountable for the data dictionary and keys; cloud partner for the landing zone; governance office for the classification sign-off. Resist the urge to make every A internal.</p></div>
+      <div class="step"><p>For every external A, note the delivery agreement that backs it - a due date or definition of done the PMO tracks across the org boundary. RACI names the owner; the agreement makes it enforceable.</p></div>
+      <div class="step"><p>Compare with a neighbour: did you both put governance sign-off's A on the governance office, not on Priya? That is the honest map.</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>The most expensive RACI mistake on a platform build is a silent external A - a dictionary the source team was "obviously" going to finish, that nobody wrote down as their accountability. It becomes R1 in the risk register. Naming the external A here is what lets the PMO chase it before it slips.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Find and fix one broken row <span class="tag demo">★ 6 min · everyone fixes</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Here is a deliberately broken row for "certified dataset release": Sponsor = <strong>A</strong>, Head of D&amp;A = <strong>A</strong>, PMO = C, Source dev = C, Cloud = C, Governance = C. Spot the anti-patterns.</p></div>
+      <div class="step"><p>Two problems: two A's (many-A stand-off) and four C's (over-Consulted crawl). Fix the A first - one owner. Certifying a dataset is a data-quality outcome, so the A belongs to the Head of D&amp;A; the Sponsor drops to Informed.</p></div>
+      <div class="step"><p>Trim the C's: keep governance as Consulted (their classification genuinely shapes certification), demote the rest to Informed. Read the fixed row aloud - one A, one meaningful C, the rest I.</p></div>
+    </div>
+    <div class="callout tip">
+      <strong>Keep this artifact</strong>
+      Your RACI - internal seats, external partners, one A per row, an escalation ceiling - joins the charter, milestone map, dependency graph, and risk register. The RACI plus the risk register plus the milestone map is the PMO pack Session 6 tracks to production.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Build a RACI for a real project at your desk</strong> - list the activities, list every role including external partners, and put exactly one A in each row.</li>
+      <li><strong>Hunt your own anti-patterns:</strong> scan an existing project's ownership and find a no-A orphan, a many-A stand-off, or an over-Consulted column. Fix one.</li>
+      <li><strong>Read the self-study cards</strong> above: RASCI/DACI variants, knowledge transfer as shared responsibility, the over-Consulted slowdown.</li>
+      <li><strong>Optional deep end:</strong> read a responsibility-assignment-matrix primer, and sketch the escalation ladder for your current initiative - name the ceiling.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What does the A in RACI mean, and how many per row?</p>
+      <button class="qopt" type="button">A · Assistant - as many as the work needs</button>
+      <button class="qopt" type="button">B · Accountable - exactly one per row, the single owner who answers for the outcome</button>
+      <button class="qopt" type="button">C · Approver - usually two or three for balance</button>
+      <p class="qwhy">Accountable is singular by design. R can be shared and C and I can be many, but exactly one A per row - two means a stand-off, zero means an orphan. Scan the A column first when reviewing any RACI.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Who should be Accountable for Northwind's governance sign-off?</p>
+      <button class="qopt" type="button">A · The PMO, because they track everything</button>
+      <button class="qopt" type="button">B · Priya, the Head of Data &amp; Analytics</button>
+      <button class="qopt" type="button">C · The governance office - it owns classification, PII, retention and lineage</button>
+      <p class="qwhy">Governance sign-off is the governance office's deliverable, even though it sits outside the delivery team. Making its A internal would leave the real owner unchased - and it is a hard gate on M2.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · What is the over-Consulted anti-pattern?</p>
+      <button class="qopt" type="button">A · Too many roles marked Consulted, so every decision waits on every voice and crawls</button>
+      <button class="qopt" type="button">B · Consulting an external party instead of an internal one</button>
+      <button class="qopt" type="button">C · Forgetting to consult anyone at all</button>
+      <p class="qwhy">It looks like good inclusion but stalls delivery - a two-day call becomes a two-week round-robin. Reserve C for roles whose input truly changes the outcome; demote the rest to Informed.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This course teaches the working 80% of each tool and cites the canon - full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">RACI / responsibility assignment matrix</span><span class="note">R/A/C/I, the grid itself - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Internal vs external ownership</span><span class="note">two lanes, external A's + delivery agreements - Part 2 + Apply-along 2</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Escalation design</span><span class="note">the ceiling, the rungs, the trigger to move up - Part 3</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">RASCI / DACI variants</span><span class="note">self-study card, Part 1 - use the simplest that removes real confusion</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">The one-accountable rule &amp; anti-patterns</span><span class="note">no A, many A, over-Consulted - Part 3 + Apply-along 3</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 5 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>RACI</b><span>Responsible does · Accountable owns · Consulted gives input before · Informed hears after.</span></div>
+      <div class="cheat-item"><b>One-accountable rule</b><span>Exactly one A per row, always. Scan the A column first: no A is an orphan, two A's is a stand-off.</span></div>
+      <div class="cheat-item"><b>Internal vs external</b><span>External partners get letters too. Most own an A on their deliverable - back it with a delivery agreement.</span></div>
+      <div class="cheat-item"><b>Escalation</b><span>Name the ceiling (Northwind: the CEO) and the rungs. A stuck decision moves up one rung, never floats.</span></div>
+      <div class="cheat-item"><b>Anti-patterns</b><span>No A, many A, over-Consulted, R-with-no-authority. Each looks documented while decisions crawl.</span></div>
+      <div class="cheat-item"><b>Northwind so far</b><span>Charter, milestones, dependencies, risk register, and now the RACI - the PMO pack Session 6 tracks.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 5 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="06-sizing-and-tracking.html">Next: Sizing, benchmarking &amp; tracking →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

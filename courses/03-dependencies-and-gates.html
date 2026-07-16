@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 · Dependencies &amp; hard gates - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 3 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 3 of 6</div>
+    <h1>Dependencies &amp; hard gates: <span class="accent">sequence the build so it cannot detonate</span></h1>
+    <p class="sub">Session 2 gave you ten milestones. But milestones do not run in a tidy line - some block others, and one blocks almost everything. This session sequences them: the four dependency types, how to spot a true hard gate, and how to trace the critical path so you know what sets the minimum duration and what can run in parallel. You leave with Northwind's dependency graph and hard-gate list.</p>
+    <div class="chip-row">
+      <span class="chip level">🟠 Advanced</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">Builds on Session 2</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Milestones do not run in a line</h2>
+    </div>
+    <p class="lede">The milestone map reads left to right, which makes it look like a queue. It is not. M4 cannot start until M3 finishes; nothing technical can be committed until the hires land; you cannot ingest into infrastructure that does not exist yet. Some of these links are physics (you genuinely cannot do B before A) and some are preference (you would rather do B after A). Confusing the two is how teams "parallelise it later" straight into a stall. This session sorts the links, finds the ones that are truly non-negotiable, and traces the longest chain so you know the real minimum duration. You walk out with <strong>Northwind's dependency graph and its hard-gate list</strong> - Session 4's risk input.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Northwind's dependency graph: milestones linked as finish-to-start pairs, three hard gates marked (hiring, governance sign-off, infra landing zone), and the critical path traced so you can see the minimum duration and which tracks run in parallel. Delays on that path are Session 4's biggest risks.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: DEPENDENCY TYPES ============ -->
+  <section class="section" id="types">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · the four links</span>
+      <h2>Dependency types: hard vs soft <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A dependency is a link that says "the timing of B depends on A". There are two things to name about every link: its <strong>type</strong> (which end connects to which) and its <strong>nature</strong> (mandatory/hard, or discretionary/soft). Finish-to-start is by far the most common - B starts when A finishes - but start-to-start and finish-to-finish appear on any real plan. Get the type wrong and your schedule lies; get the nature wrong and you either over-constrain or over-promise.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three dependency types shown as A to B box pairs: finish-to-start, start-to-start, and finish-to-finish">
+        <style>
+          .dtT { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+          .dtH { font: 700 13px Inter, sans-serif; fill: #16202B; }
+          .dtL { font: 600 11.5px Inter, sans-serif; fill: #14507D; }
+          .dtX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- FS -->
+        <text class="dtH" x="40" y="34">Finish-to-start (FS)</text>
+        <rect x="40" y="46" width="120" height="46" rx="10" fill="#0B2A45"/>
+        <text class="dtT" x="80" y="74">A</text>
+        <rect x="240" y="46" width="120" height="46" rx="10" fill="#2E77AB"/>
+        <text class="dtT" x="280" y="74">B</text>
+        <line x1="160" y1="69" x2="238" y2="69" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#dtArr)"/>
+        <text class="dtL" x="40" y="112">B starts when A finishes - the default link</text>
+        <!-- SS -->
+        <text class="dtH" x="480" y="34">Start-to-start (SS)</text>
+        <rect x="480" y="46" width="120" height="46" rx="10" fill="#0B2A45"/>
+        <text class="dtT" x="520" y="74">A</text>
+        <rect x="680" y="46" width="120" height="46" rx="10" fill="#2E77AB"/>
+        <text class="dtT" x="720" y="74">B</text>
+        <line x1="540" y1="46" x2="740" y2="46" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#dtArr)"/>
+        <text class="dtL" x="480" y="112">B can start once A starts - they run together</text>
+        <!-- FF -->
+        <text class="dtH" x="40" y="164">Finish-to-finish (FF)</text>
+        <rect x="40" y="176" width="120" height="46" rx="10" fill="#0B2A45"/>
+        <text class="dtT" x="80" y="204">A</text>
+        <rect x="240" y="176" width="120" height="46" rx="10" fill="#2E77AB"/>
+        <text class="dtT" x="280" y="204">B</text>
+        <line x1="160" y1="222" x2="300" y2="222" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#dtArr)"/>
+        <text class="dtL" x="40" y="242">B cannot finish until A finishes</text>
+        <defs>
+          <marker id="dtArr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <!-- nature note -->
+        <text class="dtH" x="480" y="164">Nature: hard vs soft</text>
+        <rect x="480" y="176" width="150" height="46" rx="10" fill="#C9930A"/>
+        <text class="dtT" x="496" y="204">HARD (mandatory)</text>
+        <rect x="650" y="176" width="150" height="46" rx="10" fill="#8FBCDD"/>
+        <text class="dtH" x="666" y="204">SOFT (preferred)</text>
+        <rect x="40" y="258" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="dtX" x="62" y="269">Name both for every link: the type (which ends connect) and the nature (physics, or just preference).</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the four dependency types and the hard/soft distinction</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The four types, plainly<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Finish-to-start (FS)</strong> - B starts only after A finishes. The default and most common: M4 governed DW build starts after M3 legacy migration finishes.</li>
+          <li><strong>Start-to-start (SS)</strong> - B can start once A has started. Governance definition and infra setup can begin together once the project kicks off; neither waits for the other to finish.</li>
+          <li><strong>Finish-to-finish (FF)</strong> - B cannot finish until A finishes. Data-quality certification cannot complete until reconciliation completes.</li>
+          <li><strong>Mandatory vs discretionary</strong> - a hard (mandatory) dependency is physics: you genuinely cannot ingest before the landing zone exists. A soft (discretionary) dependency is preference: you would rather profile all sources before designing, but you could overlap if pushed.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Why the nature matters more than the type</strong>
+          You can compress a soft dependency by overlapping the work; you cannot compress a hard one without breaking the project. When a plan is late, the first question is "which of these links are actually mandatory?" - because those are the only ones you are not allowed to negotiate away.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Lead &amp; lag<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Real dependencies are rarely instantaneous. Lead and lag fine-tune the timing on top of the type.</p>
+        <ul>
+          <li><strong>Lag</strong> - a forced wait after A before B can proceed. A finish-to-start with 2-day lag: reconciliation finishes, then a 2-day sign-off window before certification starts.</li>
+          <li><strong>Lead</strong> - a permitted head start, letting B begin before A fully finishes. UAT prep can start a few days before migration completes (a negative lag).</li>
+          <li><strong>Where it bites:</strong> lag hides slack that looks like progress, and lead is where "we overlapped to save time" quietly turns a soft dependency into a risk.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: HARD GATES ============ -->
+  <section class="section" id="gates">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · the non-negotiables</span>
+      <h2>The hard gates <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">A hard gate is a dependency so mandatory that everything downstream is blocked until it clears - no overlap, no "we'll catch up later". Northwind has three, and they are the spine of the whole plan. Hiring gates every technical milestone. Governance sign-off gates the architecture. The infra landing zone gates any ingestion. Miss one and you are not slow, you are stalled.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A gate diagram: hiring, governance, and infra as predecessor boxes each blocking a downstream milestone, with hiring gating every technical milestone">
+        <style>
+          .hgT { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+          .hgS { font: 400 11px Inter, sans-serif; fill: #FFFFFF; opacity: .9; }
+          .hgGate { font: 700 12px Inter, sans-serif; fill: #C9930A; }
+          .hgX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- hiring gate (the big one) -->
+        <rect x="30" y="34" width="170" height="60" rx="12" fill="#C9930A"/>
+        <text class="hgT" x="46" y="60">M2.1 · Hiring</text>
+        <text class="hgS" x="46" y="80">Data Arch + DE Lead</text>
+        <text class="hgGate" x="232" y="58">⛔ GATE</text>
+        <line x1="200" y1="64" x2="330" y2="64" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
+        <rect x="335" y="34" width="215" height="60" rx="12" fill="#16202B"/>
+        <text class="hgT" x="351" y="60">Every technical milestone</text>
+        <text class="hgS" x="351" y="80">M2 - M6, none committed before</text>
+        <!-- governance gate -->
+        <rect x="30" y="128" width="170" height="56" rx="12" fill="#14507D"/>
+        <text class="hgT" x="46" y="152">Governance</text>
+        <text class="hgS" x="46" y="172">classification, PII, tiers</text>
+        <text class="hgGate" x="232" y="160">⛔ GATE</text>
+        <line x1="200" y1="156" x2="330" y2="156" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
+        <rect x="335" y="128" width="215" height="56" rx="12" fill="#2E77AB"/>
+        <text class="hgT" x="351" y="152">M2 · architecture</text>
+        <text class="hgS" x="351" y="172">finalised only after sign-off</text>
+        <!-- infra gate -->
+        <rect x="30" y="218" width="170" height="56" rx="12" fill="#0B2A45"/>
+        <text class="hgT" x="46" y="242">Infra landing zone</text>
+        <text class="hgS" x="46" y="262">VPC, IAM, security</text>
+        <text class="hgGate" x="232" y="250">⛔ GATE</text>
+        <line x1="200" y1="246" x2="330" y2="246" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
+        <rect x="335" y="218" width="215" height="56" rx="12" fill="#2E77AB"/>
+        <text class="hgT" x="351" y="242">Any ingestion (M1)</text>
+        <text class="hgS" x="351" y="262">no data before the zone exists</text>
+        <defs>
+          <marker id="hgArr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <rect x="600" y="34" width="250" height="240" rx="12" fill="#EAF2F8"/>
+        <text class="hgGate" x="620" y="64" style="fill:#16202B;font-size:13px">The gate test</text>
+        <text class="hgX" x="620" y="90">A link is a HARD gate if:</text>
+        <text class="hgX" x="620" y="116">1 · downstream cannot even</text>
+        <text class="hgX" x="620" y="132">start until it clears</text>
+        <text class="hgX" x="620" y="158">2 · no overlap buys you time</text>
+        <text class="hgX" x="620" y="184">3 · skipping it forces a</text>
+        <text class="hgX" x="620" y="200">rebuild, not a patch</text>
+        <text class="hgGate" x="620" y="240" style="fill:#B42318">If all three: it is a gate,</text>
+        <text class="hgGate" x="620" y="256" style="fill:#B42318">not a preference.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Northwind's three hard gates and the test that identifies them</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Recognising a true hard gate<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Not every "important" dependency is a gate. A gate passes three tests at once: downstream cannot start until it clears, no amount of overlap buys time, and skipping it forces a rebuild rather than a patch. Northwind's three:</p>
+        <ul>
+          <li><strong>Hiring gates all technical milestones (M2-M6).</strong> No committed technical milestone until the Data Architect and Data Engineering Lead are onboarded. This is the hard dependency named in the charter, now sequenced.</li>
+          <li><strong>Governance sign-off gates the M2 architecture.</strong> Classification, PII tagging, retention, and access tiers must be signed off before the warehouse design is finalised - or the tiers become a late re-architecture.</li>
+          <li><strong>Infra landing zone gates any ingestion.</strong> The VPC, IAM, secrets, and security baseline must exist before a single byte lands, or you are ingesting into an unhardened environment.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>The tell of a real gate is that people keep proposing to "start anyway and backfill". On Northwind, someone will suggest ingesting into a half-built landing zone to "save two weeks". That is the moment the gate earns its name: the two weeks saved become two months of re-permissioning and a security review. A gate you can talk your way past was never a gate.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The "we'll parallelise it later" trap<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The most expensive schedule mistake is treating a hard dependency as soft to hit a date. It always looks like progress at first - two workstreams running at once - and the cost lands weeks later when the downstream work has to be redone on the correct foundation.</p>
+        <ul>
+          <li><strong>The pattern:</strong> "We can't wait for governance, let's design the warehouse now and add the tiers after." Then PII surfaces in a "public" schema and the design is re-poured.</li>
+          <li><strong>Why it fools people:</strong> the parallel start shows visible motion, and the rework cost is deferred past the next status meeting.</li>
+          <li><strong>The discipline:</strong> before overlapping any link, prove it is soft. If skipping the predecessor would force a rebuild, it is hard - and you wait.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: CRITICAL PATH ============ -->
+  <section class="section" id="critical">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · what sets the clock</span>
+      <h2>Critical path &amp; parallel tracks <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">The critical path is the longest chain of dependent milestones - and its length is the minimum time the whole project can take, no matter how many people you add elsewhere. Everything not on it has slack (float): time it can slip without moving the end date. That slack is where parallel tracks live. On Northwind, the hiring, governance, and infra tracks run in parallel early precisely because they have to converge before the critical chain can proceed.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lane diagram with the critical chain highlighted along the top and parallel tracks for hiring, governance, and infra running below">
+        <style>
+          .cpT { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .cpLane { font: 700 11px Inter, sans-serif; fill: #5C6B7A; }
+          .cpHot { font: 700 12px Inter, sans-serif; fill: #C9930A; }
+          .cpX { font: 400 12px Inter, sans-serif; fill: #5C6B7A; }
+        </style>
+        <!-- critical path lane -->
+        <text class="cpLane" x="30" y="46">CRITICAL PATH</text>
+        <rect x="30" y="56" width="110" height="44" rx="9" fill="#C9930A"/>
+        <text class="cpT" x="46" y="83">M1 load</text>
+        <rect x="180" y="56" width="110" height="44" rx="9" fill="#C9930A"/>
+        <text class="cpT" x="196" y="83">M3 migrate</text>
+        <rect x="330" y="56" width="110" height="44" rx="9" fill="#C9930A"/>
+        <text class="cpT" x="346" y="83">M4 DW</text>
+        <rect x="480" y="56" width="110" height="44" rx="9" fill="#C9930A"/>
+        <text class="cpT" x="496" y="83">M5 explore</text>
+        <rect x="630" y="56" width="110" height="44" rx="9" fill="#C9930A"/>
+        <text class="cpT" x="646" y="83">M6 prod</text>
+        <line x1="140" y1="78" x2="178" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
+        <line x1="290" y1="78" x2="328" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
+        <line x1="440" y1="78" x2="478" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
+        <line x1="590" y1="78" x2="628" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
+        <text class="cpHot" x="750" y="82">longest chain = min duration</text>
+        <!-- parallel tracks -->
+        <text class="cpLane" x="30" y="150">PARALLEL TRACKS (have slack)</text>
+        <rect x="30" y="162" width="150" height="40" rx="9" fill="#2E77AB"/>
+        <text class="cpT" x="46" y="187">Hiring track (M2.1)</text>
+        <rect x="30" y="214" width="150" height="40" rx="9" fill="#14507D"/>
+        <text class="cpT" x="46" y="239">Governance track</text>
+        <rect x="30" y="266" width="150" height="40" rx="9" fill="#0B2A45"/>
+        <text class="cpT" x="46" y="291">Infra track (M2)</text>
+        <!-- convergence arrows into critical path -->
+        <line x1="180" y1="182" x2="330" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
+        <line x1="180" y1="234" x2="330" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
+        <line x1="180" y1="286" x2="140" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
+        <defs>
+          <marker id="cpArr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <text class="cpX" x="210" y="230">These run together early, then</text>
+        <text class="cpX" x="210" y="248">converge to unblock the chain</text>
+        <rect x="30" y="300" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="cpX" x="620" y="311">A delay on the critical path moves the end date. A delay in slack does not - until the slack runs out.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the critical chain in gold, parallel tracks converging into it</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Finding the critical path<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>To find the critical path, list the chains of dependent milestones and pick the longest. On Northwind the chain M1 -> M3 -> M4 -> M5 -> M6 is the spine: raw load, then migration, then the governed DW, then exploration, then production. Each finish-to-start link is mandatory, so the chain's total length is the floor on the schedule.</p>
+        <ul>
+          <li><strong>The rule:</strong> the longest dependent chain sets the minimum duration. Adding people to a parallel track does not shorten it - only compressing the critical chain does.</li>
+          <li><strong>Slack lives off the path:</strong> the hiring, governance, and infra tracks run in parallel early. They have float - but only until they must converge to unblock M2 and the chain.</li>
+          <li><strong>Watch the convergence points:</strong> a parallel track with slack becomes critical the moment its slack runs out. The hiring track has the least room, because it gates everything technical.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Manage the path, not the plan</strong>
+          You cannot protect every milestone equally. Put your best attention, your tightest reporting, and your escalation triggers on the critical path - that is where a one-week slip is a one-week slip to the whole project. Elsewhere, slack absorbs it.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Float, slack &amp; fast-tracking<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>When the critical path is longer than the deadline allows, you have two compression moves - and both trade something.</p>
+        <ul>
+          <li><strong>Float (slack):</strong> the time a non-critical milestone can slip without moving the end date. Total float across a track tells you how much cover you have before it turns critical.</li>
+          <li><strong>Fast-tracking:</strong> overlapping milestones that were planned in sequence (starting M5 exploration on the certified slice of M4 before all of M4 finishes). It buys time but adds risk, and it is only legal on <em>soft</em> links.</li>
+          <li><strong>Crashing:</strong> adding resource to a critical milestone to shorten it. Costs money and has diminishing returns - nine engineers do not load an archive in a ninth of the time.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>List Northwind's dependencies as FS pairs <span class="tag demo">★ 7 min · everyone writes</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Take the M1-M6 map from Session 2. Write each dependency as a finish-to-start pair, "A -> B": M1 -> M3 (migrate after archive lands), M3 -> M4 (governed DW after migration), M4 -> M5 (explore on certified data), M5 -> M6 (production after exploration).</p></div>
+      <div class="step"><p>Add the gating links: infra landing zone -> M1, M2 infra -> M3, governance sign-off -> M2, M2.1 hires -> everything technical. Note which are FS and whether any are start-to-start (governance and infra can start together).</p></div>
+      <div class="step"><p>Tag each link's nature - hard or soft. Be honest: is M4 -> M5 fully hard, or could exploration start on a certified slice (a soft, fast-trackable link)?</p></div>
+      <div class="step"><p>Read a volunteer's pairs aloud - the room checks the arrows point the right way and no link is missing.</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>Writing dependencies as plain "A -> B" pairs is unglamorous and it is exactly what saves you. A director once cut a stalled data programme's recovery time in half simply by making the team write every link as a pair on one page - three "dependencies" everyone had assumed turned out to point the wrong way.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Mark the hard gates <span class="tag demo">★ 9 min · everyone marks</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Run each link through the three-part gate test: downstream cannot start until it clears, no overlap buys time, skipping it forces a rebuild. Mark the ones that pass all three.</p></div>
+      <div class="step"><p>You should land on Northwind's three: hiring gates all technical milestones, governance sign-off gates the M2 architecture, infra landing zone gates any ingestion. Draw the gate symbol on each.</p></div>
+      <div class="step"><p>Write the governing sentence on the page, verbatim: <strong>"No committed tech milestone until hires land."</strong> This is the line you point at when someone proposes to start M3 before M2.1 clears.</p></div>
+      <div class="step"><p>Compare with a neighbor: did anyone mark a fourth "gate" that is really just a soft preference? Discuss why it fails the rebuild test.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Trace the critical path <span class="tag demo">★ 6 min · everyone traces</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>From your FS pairs, find the longest dependent chain end to end. On Northwind it is M1 -> M3 -> M4 -> M5 -> M6. Highlight it - this is the critical path and its length is your minimum duration.</p></div>
+      <div class="step"><p>Circle what runs in parallel: the hiring track, the governance track, and the infra track early on. Note that each has slack only until it must converge to unblock M2 and the chain.</p></div>
+      <div class="step"><p>Identify the track with the least slack - hiring - and write why: it gates every technical milestone, so its float is the thinnest on the whole plan.</p></div>
+    </div>
+    <div class="callout tip">
+      <strong>Keep this artifact</strong>
+      Your dependency graph - FS pairs, three marked hard gates, and the traced critical path - feeds Session 4 directly. Delays on the critical path are the biggest risks in the register, and the hard gates become the highest-severity dependency risks.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Map the dependencies of a real initiative from your desk</strong> - write every link as an "A -> B" pair and tag each hard or soft. You will find at least one arrow pointing the wrong way.</li>
+      <li><strong>Find one hidden hard gate:</strong> pick something in your org being run in parallel "to save time" and test whether skipping the predecessor would force a rebuild. If it would, it is a gate you are ignoring.</li>
+      <li><strong>Read the self-study cards</strong> above: lead &amp; lag, the parallelise-it-later trap, and float/fast-tracking.</li>
+      <li><strong>Optional deep end:</strong> skim a Critical Path Method primer or the RAID dependency-log practice - both underpin Sessions 4 and 5.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">1 · What is the difference between finish-to-start and start-to-start?</p>
+      <button class="qopt" type="button">A · FS: B starts after A finishes. SS: B can start once A has started, so they run together</button>
+      <button class="qopt" type="button">B · FS is for hard dependencies, SS is for soft ones</button>
+      <button class="qopt" type="button">C · There is no difference - both mean B waits for A</button>
+      <p class="qwhy">FS is the default: M4 starts after M3 finishes. SS lets work overlap: governance and infra can both start at kick-off without waiting for each other to finish. Type and nature (hard/soft) are separate questions.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What makes a dependency a HARD gate rather than a preference?</p>
+      <button class="qopt" type="button">A · It involves a senior stakeholder</button>
+      <button class="qopt" type="button">B · It appears early in the plan</button>
+      <button class="qopt" type="button">C · Downstream cannot start until it clears, no overlap buys time, and skipping it forces a rebuild</button>
+      <p class="qwhy">All three tests at once. Northwind's gates - hiring, governance sign-off, infra landing zone - each pass all three. A "gate" you can talk your way past was never a gate.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">3 · What does the critical path determine?</p>
+      <button class="qopt" type="button">A · Which milestones are most expensive</button>
+      <button class="qopt" type="button">B · The minimum duration of the whole project - the longest chain of dependent milestones</button>
+      <button class="qopt" type="button">C · The order the board wants to see milestones reported</button>
+      <p class="qwhy">The longest dependent chain sets the floor on the schedule. Adding people to a parallel track will not shorten it; only compressing the critical chain does. Everything off the path has slack.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This course teaches the working 80% of each tool and cites the canon - full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Critical Path Method (CPM)</span><span class="note">longest dependent chain sets minimum duration, parallel tracks &amp; convergence - Part 3 + Apply-along 3</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Dependency types (FS / SS / FF, mandatory vs discretionary)</span><span class="note">the four links and the hard/soft distinction - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Stage-gate / hard gates</span><span class="note">the three-part gate test, hiring/governance/infra gates - Part 2 + Apply-along 2</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">RAID dependency register (RAID D)</span><span class="note">FS pairs feed the dependency log built alongside Session 4's risks</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Float / slack &amp; fast-tracking / crashing</span><span class="note">schedule compression trade-offs - self-study card, Part 3</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 3 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Dependency types</b><span>FS (default): B after A finishes. SS: start together. FF: finish together. Name the type AND the nature.</span></div>
+      <div class="cheat-item"><b>Hard vs soft</b><span>Hard = physics, cannot overlap. Soft = preference, can overlap. When late, ask which links are actually mandatory.</span></div>
+      <div class="cheat-item"><b>The three gates</b><span>Hiring gates all tech (M2-M6). Governance sign-off gates M2 architecture. Infra landing zone gates any ingestion.</span></div>
+      <div class="cheat-item"><b>Gate test</b><span>Cannot start until it clears + no overlap buys time + skipping forces a rebuild. All three, or it is just a preference.</span></div>
+      <div class="cheat-item"><b>Critical path</b><span>Longest dependent chain = minimum duration. M1 -> M3 -> M4 -> M5 -> M6. Manage the path, not the whole plan.</span></div>
+      <div class="cheat-item"><b>Northwind so far</b><span>Charter (S1), milestone map (S2), dependency graph + 3 hard gates + critical path built. Feeds Session 4's risk register.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 3 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="02-milestone-architecture.html">← Prev: Milestone architecture</a> &nbsp;·&nbsp; <a href="04-the-risk-register.html">Next: The risk register →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

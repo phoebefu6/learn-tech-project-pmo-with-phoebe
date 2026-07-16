@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>learn tech project PMO with phoebe - run a data platform build like a pro</title>
+<link rel="stylesheet" href="assets/style.css?v=1">
+<style>
+  .stats-row { display: flex; gap: 2.4rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: .72rem; opacity: .85; text-transform: uppercase; letter-spacing: .09em; font-weight: 600; }
+
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .course-card {
+    border: 1px solid var(--hairline);
+    border-top: 4px solid var(--diff, var(--indigo));
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fff;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+    position: relative;
+  }
+  .course-card:hover { border-color: var(--indigo-soft); border-top-color: var(--diff, var(--indigo)); box-shadow: 0 8px 28px rgba(20,80,125,.14); transform: translateY(-3px); }
+  .course-card .cicon { font-size: 1.7rem; line-height: 1; }
+  .course-card .cnum { font-size: .72rem; font-weight: 700; color: var(--indigo); text-transform: uppercase; letter-spacing: .1em; }
+  .course-card h3 { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+  .course-card p { font-size: .85rem; color: var(--muted); flex: 1; }
+  .course-card .meta { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+  .diff-legend { display: flex; gap: 1rem; margin-top: 1.6rem; font-size: .74rem; color: var(--muted); font-weight: 600; flex-wrap: wrap; }
+  .diff-legend i { display: inline-block; width: .85rem; height: .35rem; border-radius: 999px; margin-right: .35rem; vertical-align: middle; }
+
+  .paths { margin-top: 2.6rem; }
+  .paths h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .3rem; }
+  .paths .plede { color: var(--muted); font-size: .92rem; margin-bottom: .8rem; }
+  .path { display: flex; gap: .55rem; align-items: center; padding: .75rem 0; border-bottom: .5px solid var(--hairline); flex-wrap: wrap; }
+  .path:last-child { border-bottom: none; }
+  .path b { min-width: 16.5rem; font-size: .9rem; }
+  .path .pstep { background: var(--indigo-50); color: var(--indigo); border-radius: 999px; padding: .16rem .68rem; font-weight: 700; font-size: .8rem; text-decoration: none; transition: all .12s ease; }
+  .path .pstep:hover { background: var(--indigo); color: #fff; }
+  .path .parr { color: var(--faint); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe</div>
+    <h1>Run a data platform build like a pro</h1>
+    <p class="sub">Six 45-minute sessions that turn a vague "get all our data into a warehouse" mandate into a controlled program. You learn the PMO tools that senior data and tech leaders actually use - charter, milestones, dependency gates, risk register, RACI, and a tracker - applied end to end to one running case: Northwind, a fictional retailer building a governed data platform from raw dump to production BI and AI/ML. By Session 6 you have built the complete PMO pack, and a method you will reuse on every big build.</p>
+    <div class="stats-row">
+      <div class="stat"><b data-count="6">6</b><span>sessions</span></div>
+      <div class="stat"><b data-count="6">6</b><span>PMO artifacts built</span></div>
+      <div class="stat"><b data-count="45">45</b><span>min per session</span></div>
+      <div class="stat"><b data-count="1">1</b><span>data platform, planned end to end</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section">
+    <div class="course-grid">
+      <a class="course-card" href="courses/01-frame-the-initiative.html" style="--diff:#34D399">
+        <span class="cicon">📜</span>
+        <span class="cnum">Session 1 · foundation</span>
+        <h3>Frame the initiative &amp; write the charter</h3>
+        <p>Turn a one-line mandate into a charter: context, position, and the P1-P4 priorities (data, infra, governance, hiring). Meet the Northwind case.</p>
+        <span class="meta"><span class="pill amber">▶ Start here</span><span class="pill light">No prep needed</span></span>
+      </a>
+      <a class="course-card" href="courses/02-milestone-architecture.html" style="--diff:#FBBF24">
+        <span class="cicon">🗺️</span>
+        <span class="cnum">Session 2 · core</span>
+        <h3>Milestone architecture</h3>
+        <p>The milestone table that runs the whole build: ID, milestone, success criteria, key metrics, primary dependency. Ladder M1 to M6 across the DW-to-AI lifecycle.</p>
+        <span class="meta"><span class="pill light">Milestone toolkit</span></span>
+      </a>
+      <a class="course-card" href="courses/03-dependencies-and-gates.html" style="--diff:#FB923C">
+        <span class="cicon">🔗</span>
+        <span class="cnum">Session 3 · advanced</span>
+        <h3>Dependencies &amp; hard gates</h3>
+        <p>Why hiring blocks every technical milestone, why governance gates the architecture, and how to find the critical path so parallel tracks do not collide.</p>
+        <span class="meta"><span class="pill light">Sequencing toolkit</span></span>
+      </a>
+      <a class="course-card" href="courses/04-the-risk-register.html" style="--diff:#FBBF24">
+        <span class="cicon">⚠️</span>
+        <span class="cnum">Session 4 · core</span>
+        <h3>The risk register</h3>
+        <p>Build R1-R8 the way boards read them: probability times impact, severity tags, and every risk wired to a mitigation, an owner, and a trigger.</p>
+        <span class="meta"><span class="pill light">Risk toolkit</span></span>
+      </a>
+      <a class="course-card" href="courses/05-ownership-and-raci.html" style="--diff:#FBBF24">
+        <span class="cicon">👥</span>
+        <span class="cnum">Session 5 · core</span>
+        <h3>Ownership &amp; RACI</h3>
+        <p>Who is Responsible, Accountable, Consulted, Informed - across your team and the external source, cloud, and governance groups. Kill the "everyone owns it" trap.</p>
+        <span class="meta"><span class="pill light">Ownership toolkit</span></span>
+      </a>
+      <a class="course-card" href="courses/06-sizing-and-tracking.html" style="--diff:#FB923C">
+        <span class="cicon">📊</span>
+        <span class="cnum">Session 6 · advanced</span>
+        <h3>Sizing, benchmarking &amp; tracking</h3>
+        <p>Size the scope with peer benchmarks, build the migration tracker (coverage %, quality flags), run the status cadence, and take Northwind to a production platform.</p>
+        <span class="meta"><span class="pill light">The finale</span></span>
+      </a>
+    </div>
+    <div class="diff-legend">
+      <span><i style="background:#34D399"></i>foundation - everyone</span>
+      <span><i style="background:#FBBF24"></i>core - hands-on PMO</span>
+      <span><i style="background:#FB923C"></i>advanced - running the program</span>
+    </div>
+
+    <div class="paths">
+      <h2>Choose your path 🗺️</h2>
+      <p class="plede">Everyone starts at Session 1 - the charter frames every session after it.</p>
+      <div class="path"><b>🏛️ Sponsor / C-level - the oversight view</b>
+        <a class="pstep" href="courses/01-frame-the-initiative.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-risk-register.html">4</a><span class="parr">→</span>
+        <a class="pstep" href="courses/05-ownership-and-raci.html">5</a><span class="parr">→</span>
+        <a class="pstep" href="courses/06-sizing-and-tracking.html">6</a><span class="parr">→</span>
+        <span style="font-size:.8rem;color:var(--muted)">frame the mandate, see the risks, know who owns what, judge the tracker</span>
+      </div>
+      <div class="path"><b>📋 PMO / delivery lead - run the program</b>
+        <a class="pstep" href="courses/01-frame-the-initiative.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/02-milestone-architecture.html">2</a><span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-risk-register.html">4</a><span class="parr">→</span>
+        <a class="pstep" href="courses/06-sizing-and-tracking.html">6</a><span class="parr">→</span>
+        <span style="font-size:.8rem;color:var(--muted)">then fill in dependencies and ownership</span>
+      </div>
+      <div class="path"><b>🛠️ Data / tech lead - the build sequence</b>
+        <a class="pstep" href="courses/01-frame-the-initiative.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/02-milestone-architecture.html">2</a><span class="parr">→</span>
+        <a class="pstep" href="courses/03-dependencies-and-gates.html">3</a><span class="parr">→</span>
+        <a class="pstep" href="courses/06-sizing-and-tracking.html">6</a>
+      </div>
+      <div class="path"><b>🌱 The full journey (recommended)</b>
+        <a class="pstep" href="courses/01-frame-the-initiative.html">1</a><span class="parr">→</span>
+        <a class="pstep" href="courses/02-milestone-architecture.html">2</a><span class="parr">→</span>
+        <a class="pstep" href="courses/03-dependencies-and-gates.html">3</a><span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-risk-register.html">4</a><span class="parr">→</span>
+        <a class="pstep" href="courses/05-ownership-and-raci.html">5</a><span class="parr">→</span>
+        <a class="pstep" href="courses/06-sizing-and-tracking.html">6</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>learn-tech-project-pmo-with-phoebe · by Phoebe Fu · a generic teaching case with dummy data - no real company · frameworks cited to their origins on every page</span>
+  </footer>
+</main>
+
+<script src="assets/app.js?v=1"></script>
+</body>
+</html>

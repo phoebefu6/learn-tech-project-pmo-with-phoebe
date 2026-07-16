@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 · Sizing, benchmarking &amp; tracking - learn tech project PMO with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-tech-project-pmo-with-phoebe</a> / Session 6 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Tech Project PMO with Phoebe · Session 6 of 6</div>
+    <h1>Sizing, benchmarking &amp; tracking: <span class="accent">take Northwind to production</span></h1>
+    <p class="sub">The charter, milestones, dependencies, risks, and RACI are all built. This finale does the last three things a real build needs: it sizes the scope honestly against peers, tracks delivery table by table, and defines what "done" means for production. Walk out with a benchmark-sized scope, a live tracking dashboard, and the whole PMO pack assembled.</p>
+    <div class="chip-row">
+      <span class="chip level">🟠 Advanced</span>
+      <span class="chip audience">Data &amp; tech leads, PMOs</span>
+      <span class="chip audience">The finale</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:3">3-18 · Concepts</span>
+      <span class="a3" style="flex:5">18-40 · Apply-along</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where the build stands</h2>
+    </div>
+    <p class="lede">Five sessions in, Northwind has a full framing stack: a charter that names the interim raw dump, a milestone map M1-M6, a dependency graph with hiring as the hard gate, an eight-row risk register, and a RACI that puts one accountable name on every decision. What is still missing is the honest answer to three questions a chairman will ask: <em>how big is this really, how do we know it is moving, and how will we know it is done?</em> That is this session - sizing, tracking, and the path to production - and it wraps the whole Northwind initiative.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill amber">★ Apply-along on Northwind</span>
+      <span class="pill inkpill">The case: Northwind, retail data platform</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A scope sized by peer benchmark, not by the "100% of tables" mandate; a migration and inventory tracker that shows exactly where every dataset is on its bronze-silver-gold journey; and a RAG status snapshot plus a production go-live definition. Together with the five earlier artifacts, that completes the PMO pack - a method that transfers to any big build.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: BENCHMARK SIZING ============ -->
+  <section class="section" id="sizing">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · size it honestly</span>
+      <h2>Size the scope with peer benchmarks <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">"100% of 120 tables" is a mandate, not a working scope. Mature analytics does not run on the whole raw estate - it runs on a curated working set that the business actually queries. For a retailer that is roughly 20-50 core datasets: sales, product, customer, store, stock, promotion, loyalty, fulfilment. You size that set by benchmarking against comparable retailers, certify it first, and let the long tail follow on demand.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A funnel from the full raw estate of 120 tables and 80 TB narrowing to a certified curated working set of 20 to 50 core retail datasets">
+        <style>
+          .szT { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .szS { font: 400 12px Inter, sans-serif; fill: #FFFFFF; opacity: .9; }
+          .szH { font: 700 15px Inter, sans-serif; fill: #16202B; }
+          .szX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .szG { font: 600 12.5px Inter, sans-serif; fill: #14507D; }
+        </style>
+        <text class="szH" x="40" y="34">The raw estate is not the scope</text>
+        <polygon points="60,60 500,60 420,130 140,130" fill="#0B2A45"/>
+        <text class="szT" x="180" y="90">RAW ESTATE</text>
+        <text class="szS" x="180" y="110">~120 tables · ~80 TB archive · 5 systems</text>
+        <polygon points="140,140 420,140 360,200 200,200" fill="#2E77AB"/>
+        <text class="szT" x="215" y="168">CANDIDATE SET</text>
+        <text class="szS" x="215" y="187">joins, dupes, dead tables removed</text>
+        <polygon points="200,210 360,210 330,262 230,262" fill="#C9930A"/>
+        <text class="szT" x="242" y="238">CERTIFIED</text>
+        <text class="szS" x="242" y="255">~20-50 core datasets</text>
+        <line x1="560" y1="60" x2="560" y2="270" stroke="#AEBAC6" stroke-width="2"/>
+        <text class="szG" x="590" y="82">Benchmark says:</text>
+        <text class="szX" x="590" y="108">Peer retailers certify a working set of</text>
+        <text class="szX" x="590" y="128">sales · product · customer · store · stock</text>
+        <text class="szX" x="590" y="148">promotion · loyalty · fulfilment</text>
+        <text class="szG" x="590" y="180">Certify that layer first;</text>
+        <text class="szG" x="590" y="200">the long tail lands on demand.</text>
+        <rect x="590" y="228" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="szX" x="612" y="239">A smaller certified scope ships value sooner</text>
+        <text class="szX" x="612" y="257">and is defensible - it is evidence, not a cut.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - from 120 raw tables to a certified curated working set</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Raw estate vs the certified layer<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The 120 tables include duplicates, dead extracts, staging scratch, and low-value logs. The certified layer is the subset the business decisions actually depend on. Sizing is the act of proving which is which - and a peer benchmark is the fastest evidence you can bring to that argument.</p>
+        <ul>
+          <li><strong>Raw estate:</strong> everything that lands in the lake - ~120 tables, ~80 TB. Preserved, archived, searchable, but not certified.</li>
+          <li><strong>Certified layer:</strong> the ~20-50 core retail datasets, harmonised, quality-assured, lineage-traced, and adopted by BI and DS.</li>
+          <li><strong>Benchmark test:</strong> "what does a comparable retailer actually govern?" If a peer runs its analytics on ~30 certified datasets, your 120-table mandate is a preservation goal, not a certification goal.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The 80/20 of retail data:</strong> in most retailers a handful of subject areas - sales, product, customer, stock - carry the overwhelming majority of reporting and model features. Certifying those eight-to-twelve first gets the business ninety percent of the value while the remaining tables are triaged on request. Boards understand "value first, tail on demand" far better than "everything at once."</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>How to defend a smaller scope to a chairman<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A chairman hears "we are not doing all 120 tables" as "you are cutting corners" unless you frame it as evidence. Benchmarking flips it: you are not shrinking the mandate, you are sizing it the way mature retailers do.</p>
+        <table class="clean">
+          <thead><tr><th>What the board fears</th><th>What the benchmark answers</th></tr></thead>
+          <tbody>
+            <tr><td>"You are dropping data we need"</td><td>Raw estate is fully preserved; only the certified layer is prioritised</td></tr>
+            <tr><td>"How do you know 30 is enough?"</td><td>Comparable retailers certify a similar working set - here is the peer evidence</td></tr>
+            <tr><td>"When do we get the rest?"</td><td>The long tail is certified on demand, ranked by business request</td></tr>
+          </tbody>
+        </table>
+        <p>Sizing is not a concession you apologise for - it is the discipline that lets you certify anything at all inside 90 days.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: THE TRACKER ============ -->
+  <section class="section" id="tracker">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · the tracker that runs the build</span>
+      <h2>The migration &amp; inventory tracker <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Once the working set is sized, the tracker is how the build actually runs. Each source table flows source -> bronze -> silver -> gold, and for each you record coverage %, the data start and end dates, and any known quality flags. This is the single sheet that answers "where are we?" without a meeting.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A medallion pipeline moving a source table through bronze, silver, and gold layers with a coverage percentage badge">
+        <style>
+          .trT { font: 700 14px Inter, sans-serif; fill: #FFFFFF; }
+          .trD { font: 700 14px Inter, sans-serif; fill: #16202B; }
+          .trS { font: 400 12px Inter, sans-serif; fill: #FFFFFF; opacity: .92; }
+          .trSd { font: 400 12px Inter, sans-serif; fill: #16202B; opacity: .8; }
+          .trX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .trL { font: 700 12px Inter, sans-serif; fill: #14507D; }
+        </style>
+        <rect x="30" y="60" width="150" height="86" rx="12" fill="#14507D"/>
+        <text class="trT" x="48" y="92">SOURCE</text>
+        <text class="trS" x="48" y="114">POS (Oracle)</text>
+        <text class="trS" x="48" y="132">sales_txn</text>
+        <line x1="182" y1="103" x2="222" y2="103" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#trAh)"/>
+        <defs>
+          <marker id="trAh" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
+          </marker>
+        </defs>
+        <rect x="226" y="60" width="150" height="86" rx="12" fill="#B08D57"/>
+        <text class="trT" x="244" y="92">BRONZE</text>
+        <text class="trS" x="244" y="114">raw, as-landed</text>
+        <text class="trS" x="244" y="132">1:1 archive</text>
+        <line x1="378" y1="103" x2="418" y2="103" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#trAh)"/>
+        <rect x="422" y="60" width="150" height="86" rx="12" fill="#9AA6B2"/>
+        <text class="trD" x="440" y="92">SILVER</text>
+        <text class="trSd" x="440" y="114">cleaned, keyed</text>
+        <text class="trSd" x="440" y="132">deduped</text>
+        <line x1="574" y1="103" x2="614" y2="103" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#trAh)"/>
+        <rect x="618" y="60" width="150" height="86" rx="12" fill="#C9930A"/>
+        <text class="trT" x="636" y="92">GOLD</text>
+        <text class="trS" x="636" y="114">certified,</text>
+        <text class="trS" x="636" y="132">BI-ready</text>
+        <rect x="786" y="72" width="66" height="62" rx="10" fill="#0B2A45"/>
+        <text class="trT" x="800" y="100" style="font-size:16px">88%</text>
+        <text class="trS" x="796" y="120" style="font-size:10px">coverage</text>
+        <text class="trL" x="30" y="188">Per dataset, the tracker records:</text>
+        <text class="trX" x="30" y="212">coverage % (rows reconciled vs source) · data start/end dates · quality flag (nulls, dupes, key gaps)</text>
+        <rect x="30" y="238" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="trX" x="52" y="249">A dataset is only "done" when it reaches gold at high coverage with its quality flags cleared.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one dataset moving through the medallion layers with a coverage badge</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>What to track per dataset<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The tracker has one row per certified dataset and a handful of columns that never change project to project. Keep it boring and consistent - it is the source of truth the status meeting reads from.</p>
+        <table class="clean">
+          <thead><tr><th>Source system</th><th>Table</th><th>Layer</th><th>Coverage %</th><th>Quality flag</th></tr></thead>
+          <tbody>
+            <tr><td>POS (Oracle)</td><td>sales_txn</td><td>Gold</td><td>88%</td><td>Clear</td></tr>
+            <tr><td>E-commerce (Postgres)</td><td>web_orders</td><td>Silver</td><td>72%</td><td>Key gaps</td></tr>
+            <tr><td>Loyalty (MySQL)</td><td>member</td><td>Silver</td><td>65%</td><td>Dupes</td></tr>
+            <tr><td>Finance (SAP)</td><td>gl_daily</td><td>Bronze</td><td>40%</td><td>Late dates</td></tr>
+          </tbody>
+        </table>
+        <div class="callout tip">
+          <strong>Coverage is a reconciliation number, not a vibe</strong>
+          Coverage % means "rows landed and reconciled against the source count", not "we think it looks complete." Tie it to R2 from the risk register - archive completeness and reconciliation gaps - so the tracker doubles as your evidence that the risk is closing.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Reconciliation evidence &amp; sign-off<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A dataset reaches gold when the numbers reconcile and someone accountable signs. Reconciliation is the arithmetic proof; sign-off is the RACI accountable owner accepting it against the success criteria from Session 2.</p>
+        <ul>
+          <li><strong>Row and control-total reconciliation:</strong> source row counts and key financial totals match the certified table within an agreed tolerance.</li>
+          <li><strong>Quality flags cleared:</strong> nulls, duplicates, and key gaps are resolved or formally accepted with a documented reason.</li>
+          <li><strong>Accountable sign-off:</strong> the one accountable owner (RACI, Session 5) records acceptance - that is the audit trail when the board asks "who certified this?"</li>
+        </ul>
+        <p>Reconciliation evidence is what turns "we loaded it" into "we can trust it" - and it is the gate between silver and gold.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: STATUS CADENCE + PRODUCTION ============ -->
+  <section class="section" id="cadence">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · status &amp; the path to production</span>
+      <h2>Status cadence &amp; the path to production <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Tracking data is only half the job - the other half is reporting it so decisions get made. RAG status (red / amber / green) plus a weekly cadence and disciplined action-item closure keeps the build honest. Then the finish line: the M6 definition of done that says when Northwind is actually in production.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A RAG status dashboard showing milestones M1 to M6 with red, amber, and green status chips">
+        <style>
+          .rgT { font: 700 13.5px Inter, sans-serif; fill: #16202B; }
+          .rgH { font: 700 15px Inter, sans-serif; fill: #16202B; }
+          .rgX { font: 400 12.5px Inter, sans-serif; fill: #5C6B7A; }
+          .rgC { font: 700 12px Inter, sans-serif; fill: #16202B; }
+          .rgN { font: 600 12px Inter, sans-serif; fill: #16202B; }
+        </style>
+        <text class="rgH" x="40" y="34">Weekly RAG snapshot · Northwind M1-M6</text>
+        <rect x="40" y="52" width="800" height="34" rx="8" fill="#EAF2F8"/>
+        <text class="rgT" x="58" y="74">M1 · Raw archive load</text>
+        <rect x="720" y="58" width="104" height="22" rx="11" fill="#34D399"/>
+        <text class="rgC" x="748" y="73">GREEN</text>
+        <rect x="40" y="92" width="800" height="34" rx="8" fill="#EAF2F8"/>
+        <text class="rgT" x="58" y="114">M2 · Cloud &amp; infra + hires</text>
+        <rect x="720" y="98" width="104" height="22" rx="11" fill="#34D399"/>
+        <text class="rgC" x="748" y="113">GREEN</text>
+        <rect x="40" y="132" width="800" height="34" rx="8" fill="#EAF2F8"/>
+        <text class="rgT" x="58" y="154">M3 · Legacy migration</text>
+        <rect x="720" y="138" width="104" height="22" rx="11" fill="#FBBF24"/>
+        <text class="rgC" x="750" y="153">AMBER</text>
+        <rect x="40" y="172" width="800" height="34" rx="8" fill="#EAF2F8"/>
+        <text class="rgT" x="58" y="194">M4 · Governed warehouse</text>
+        <rect x="720" y="178" width="104" height="22" rx="11" fill="#FBBF24"/>
+        <text class="rgC" x="750" y="193">AMBER</text>
+        <rect x="40" y="212" width="800" height="34" rx="8" fill="#EAF2F8"/>
+        <text class="rgT" x="58" y="234">M5 · Data product backlog</text>
+        <rect x="720" y="218" width="104" height="22" rx="11" fill="#F87171"/>
+        <text class="rgC" x="758" y="233">RED</text>
+        <rect x="40" y="255" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="rgX" x="62" y="266">RAG is a decision trigger: every red and amber needs a named owner, an action, and a date - or it is just decoration.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a weekly RAG snapshot across the milestone spine</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Running a status meeting that ends in decisions<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A good status cadence is short, weekly, and ruthless about closure. RAG is the language; the meeting exists to turn every red and amber into an owned action, not to admire green.</p>
+        <ul>
+          <li><strong>Green</strong> - on track, no discussion needed. Do not spend the meeting here.</li>
+          <li><strong>Amber</strong> - at risk. Needs a mitigation owner and a date this week, pulled straight from the risk register.</li>
+          <li><strong>Red</strong> - blocked or slipped. Escalate to the accountable owner (RACI) and, if needed, the escalation ceiling named in the charter.</li>
+          <li><strong>Action-item closure:</strong> every item from last week is either done, re-owned with a new date, or explicitly killed. Nothing lingers unowned.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The cadence rule</strong>
+          Weekly for delivery, monthly for the steering board. If a status meeting ends without a decision or a re-owned action, it was a reading group, not a status meeting. RAG plus closure is what makes it a decision engine.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Go-live / production readiness checklist<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>M6 is "one-stop platform in production (BI + DS + AI/ML)". Production is not a date - it is a definition of done that everything must satisfy before the platform carries real decisions.</p>
+        <ul>
+          <li><strong>Certified datasets adopted:</strong> the curated working set is at gold, reconciled and signed off, and BI is actually built on it - not on shadow extracts.</li>
+          <li><strong>Critical pipelines meet SLA:</strong> the daily incremental (M1.1) lands on time, monitored, with alerting and a runbook.</li>
+          <li><strong>Controlled self-service BI:</strong> governed dashboards on certified data, access tiers enforced, no ungoverned direct-to-lake reporting.</li>
+          <li><strong>First AI/ML product on traceable data only:</strong> the first model runs solely on certified, lineage-traced datasets - never on raw or unreconciled tables.</li>
+        </ul>
+        <p>When all four hold, the interim raw dump has become the governed platform the charter promised - and Northwind is in production.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 1 of 3</span>
+      <h2>Size Northwind's curated working set <span class="tag demo">★ 7 min · everyone lists</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Start from the mandate: ~120 tables across POS, e-commerce, loyalty, finance ERP, and marketing. The board wants "all of it." Your job is to name the certified working set the business actually queries.</p></div>
+      <div class="step"><p>Using the retail benchmark (sales, product, customer, store, stock, promotion, loyalty, fulfilment), write down <strong>8-12 core datasets</strong> Northwind should certify first. One line each: name + which source system it comes from.</p></div>
+      <div class="step"><p>For each, add a one-word reason it is in the certified set (e.g. "drives revenue reporting", "feeds churn model"). If you cannot name why it is core, it belongs in the long tail.</p></div>
+      <div class="step"><p>Read a volunteer's list aloud - the room checks: is this defensible as "what a peer retailer governs", or did someone sneak the whole estate back in?</p></div>
+    </div>
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>The curated list is the artifact you take back to the chairman. When they ask "why only 30 and not 120?", you do not defend - you show the benchmark and the value ranking. Sizing well now is what makes the 90-day certified layer actually shippable.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 2 of 3</span>
+      <h2>Fill the tracker for Northwind <span class="tag demo">★ 9 min · everyone fills</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>Draw the five columns: Source system · Table · Layer · Coverage % · Quality flag. Pick <strong>4-5 datasets</strong> from your curated list in Demo 1.</p></div>
+      <div class="step"><p>For each row, place it on a layer (Bronze / Silver / Gold) and give it a realistic coverage % - remember coverage is rows reconciled against source, not a guess.</p></div>
+      <div class="step"><p>Add one quality flag per row from real retail failure modes: key gaps (e-commerce orders without a customer key), dupes (loyalty members), late dates (finance GL), or "Clear" if it is certified.</p></div>
+      <div class="step"><p>Mark which rows are truly "done" (Gold + high coverage + Clear). Discuss with a neighbor: which single flag is blocking the most datasets from reaching gold?</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Apply-along 3 of 3</span>
+      <h2>Build a RAG snapshot &amp; the go-live bar <span class="tag demo">★ 6 min · everyone rates</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><p>List M1-M6 down the page. Give each a RAG chip - Green (on track), Amber (at risk), or Red (blocked) - based on where you would honestly expect Northwind to be mid-build.</p></div>
+      <div class="step"><p>For every Amber and Red, write the one line the status meeting needs: owner + action + date. No naked reds allowed.</p></div>
+      <div class="step"><p>Write Northwind's <strong>production go-live criteria</strong> in four bullets: certified datasets adopted, critical pipelines meet SLA, controlled self-service BI, first AI/ML product on traceable data only.</p></div>
+      <div class="step"><p>Read one go-live definition aloud - the room checks: could a board tell from these four bullets exactly when to declare M6 done?</p></div>
+    </div>
+    <div class="callout win">
+      <strong>★ Your PMO pack is complete</strong>
+      Across six sessions you built every artifact a governed build needs: the <strong>charter</strong> (S1), the <strong>milestone map</strong> M1-M6 (S2), the <strong>dependency graph</strong> with hard gates (S3), the eight-row <strong>risk register</strong> (S4), the <strong>RACI</strong> (S5), and now the <strong>sizing benchmark + tracking dashboard</strong> (S6). That is a portable method - it frames, sequences, de-risks, assigns, and tracks any big build, not just Northwind.
+    </div>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">After the session</span>
+      <h2>This week <span class="tag exercise">◐ 30 min total</span></h2>
+    </div>
+    <ul>
+      <li><strong>Benchmark-size a real scope from your desk:</strong> take something being sold as "we will do all of it" and write the curated working set a peer would actually certify first.</li>
+      <li><strong>Draft a five-column tracker</strong> for one initiative: Source · Table/Item · Layer/Stage · Coverage/Progress % · Quality flag. Fill five rows honestly.</li>
+      <li><strong>Write a one-page go-live definition of done</strong> for a project you own - the four-to-six bullets that say when it is truly in production, not just launched.</li>
+      <li><strong>Read the self-study cards</strong> above: defending a smaller scope, reconciliation sign-off, and the production readiness checklist.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Why does a curated working set beat certifying "100% of the tables"?</p>
+      <button class="qopt" type="button">A · Because storing all 120 tables is technically impossible</button>
+      <button class="qopt" type="button">B · Because mature analytics runs on a benchmark-sized core set; you certify that first for value and defensibility, with the tail on demand</button>
+      <button class="qopt" type="button">C · Because the board does not care about most of the data</button>
+      <p class="qwhy">The raw estate is preserved, but you certify the ~20-50 core datasets a peer retailer actually governs. It ships value sooner and is defensible as benchmark evidence, not a cut - the long tail follows on request.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · In the migration tracker, what does coverage % actually measure?</p>
+      <button class="qopt" type="button">A · How confident the team feels the load is complete</button>
+      <button class="qopt" type="button">B · The percentage of columns that have been documented</button>
+      <button class="qopt" type="button">C · Rows landed and reconciled against the source count - a reconciliation number, not a vibe</button>
+      <p class="qwhy">Coverage % is arithmetic proof: rows reconciled against the source. It ties directly to the archive-completeness risk (R2), so the tracker doubles as evidence that risk is closing.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · What is RAG status reporting for?</p>
+      <button class="qopt" type="button">A · To turn every red and amber into a named owner, an action, and a date so the meeting ends in decisions</button>
+      <button class="qopt" type="button">B · To make the dashboard look colourful for the board</button>
+      <button class="qopt" type="button">C · To celebrate the milestones that are already green</button>
+      <p class="qwhy">RAG is a decision trigger, not decoration. Green needs no discussion; amber and red each need an owner, an action, and a date, plus action-item closure every week - or it is a reading group, not a status meeting.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Source material</span>
+      <h2>Frameworks covered &amp; their origins</h2>
+    </div>
+    <p class="lede">This finale teaches the working 80% of scope sizing, delivery tracking, and status governance - and cites the canon, so the full standards stay the deep end for anyone who wants them.</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Benchmarking for scope sizing</span><span class="note">peer-evidence curated working set vs raw estate - Part 1 + Apply-along 1</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Migration / inventory tracker + medallion layers</span><span class="note">source -> bronze -> silver -> gold, coverage %, quality flags - Part 2 + Apply-along 2</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">RAG status reporting &amp; cadence</span><span class="note">red/amber/green, action-item closure, weekly cadence - Part 3 + Apply-along 3</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Path to production (M6 definition of done)</span><span class="note">certified BI + DS sandbox + AI/ML on traceable data - Part 3 self-study</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Reconciliation evidence &amp; sign-off</span><span class="note">self-study card, Part 2 - ties to R2 and the RACI accountable owner</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">PMO KPI / health dashboard</span><span class="note">named here - RAG snapshot is the practitioner core; full KPI suite is the deep end</span></div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 6 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Size by benchmark</b><span>The mandate is not the scope. Certify the ~20-50 core datasets a peer retailer governs; preserve the rest, certify the tail on demand.</span></div>
+      <div class="cheat-item"><b>Certified vs raw</b><span>Raw estate (~120 tables, ~80 TB) is preserved. Certified layer is harmonised, quality-assured, lineage-traced, and adopted.</span></div>
+      <div class="cheat-item"><b>The tracker</b><span>One row per dataset: Source · Table · Layer · Coverage % · Quality flag. It answers "where are we?" without a meeting.</span></div>
+      <div class="cheat-item"><b>Coverage %</b><span>Rows reconciled against source - not a vibe. Ties to R2 archive-completeness; it is the silver-to-gold gate evidence.</span></div>
+      <div class="cheat-item"><b>RAG cadence</b><span>Green = no discussion. Amber/Red = owner + action + date. Weekly delivery, monthly board. Close every item.</span></div>
+      <div class="cheat-item"><b>Northwind: shipped</b><span>Certified datasets adopted, pipelines meet SLA, governed self-service BI, first AI/ML on traceable data. The interim dump is now the governed platform. Done.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Session 6 of 6 · learn-tech-project-pmo-with-phoebe · by Phoebe Fu</span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="../index.html">Back to start ↺</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
