@@ -178,7 +178,7 @@
         <rect x="30" y="34" width="170" height="60" rx="12" fill="#C9930A"/>
         <text class="hgT" x="46" y="60">M2.1 · Hiring</text>
         <text class="hgS" x="46" y="80">Data Arch + DE Lead</text>
-        <text class="hgGate" x="232" y="58">⛔ GATE</text>
+        <text class="hgGate" x="232" y="54">⛔ GATE</text>
         <line x1="200" y1="64" x2="330" y2="64" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
         <rect x="335" y="34" width="215" height="60" rx="12" fill="#16202B"/>
         <text class="hgT" x="351" y="60">Every technical milestone</text>
@@ -187,7 +187,7 @@
         <rect x="30" y="128" width="170" height="56" rx="12" fill="#14507D"/>
         <text class="hgT" x="46" y="152">Governance</text>
         <text class="hgS" x="46" y="172">classification, PII, tiers</text>
-        <text class="hgGate" x="232" y="160">⛔ GATE</text>
+        <text class="hgGate" x="232" y="146">⛔ GATE</text>
         <line x1="200" y1="156" x2="330" y2="156" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
         <rect x="335" y="128" width="215" height="56" rx="12" fill="#2E77AB"/>
         <text class="hgT" x="351" y="152">M2 · architecture</text>
@@ -196,7 +196,7 @@
         <rect x="30" y="218" width="170" height="56" rx="12" fill="#0B2A45"/>
         <text class="hgT" x="46" y="242">Infra landing zone</text>
         <text class="hgS" x="46" y="262">VPC, IAM, security</text>
-        <text class="hgGate" x="232" y="250">⛔ GATE</text>
+        <text class="hgGate" x="232" y="236">⛔ GATE</text>
         <line x1="200" y1="246" x2="330" y2="246" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#hgArr)"/>
         <rect x="335" y="218" width="215" height="56" rx="12" fill="#2E77AB"/>
         <text class="hgT" x="351" y="242">Any ingestion (M1)</text>
@@ -258,7 +258,7 @@
     <p class="lede">The critical path is the longest chain of dependent milestones - and its length is the minimum time the whole project can take, no matter how many people you add elsewhere. Everything not on it has slack (float): time it can slip without moving the end date. That slack is where parallel tracks live. On Northwind, the hiring, governance, and infra tracks run in parallel early precisely because they have to converge before the critical chain can proceed.</p>
 
     <figure class="zoomable">
-      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lane diagram with the critical chain highlighted along the top and parallel tracks for hiring, governance, and infra running below">
+      <svg viewBox="0 0 880 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lane diagram with the critical chain highlighted along the top and parallel tracks for hiring, governance, and infra running below">
         <style>
           .cpT { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
           .cpLane { font: 700 11px Inter, sans-serif; fill: #5C6B7A; }
@@ -281,7 +281,8 @@
         <line x1="290" y1="78" x2="328" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
         <line x1="440" y1="78" x2="478" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
         <line x1="590" y1="78" x2="628" y2="78" stroke="#AEBAC6" stroke-width="2.5" marker-end="url(#cpArr)"/>
-        <text class="cpHot" x="708" y="82">longest chain = min duration</text>
+        <text class="cpHot" x="752" y="74">longest chain</text>
+        <text class="cpHot" x="752" y="90">= min duration</text>
         <!-- parallel tracks -->
         <text class="cpLane" x="30" y="150">PARALLEL TRACKS (have slack)</text>
         <rect x="30" y="162" width="150" height="40" rx="9" fill="#2E77AB"/>
@@ -293,7 +294,7 @@
         <!-- convergence arrows into critical path -->
         <line x1="180" y1="182" x2="330" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
         <line x1="180" y1="234" x2="330" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
-        <line x1="180" y1="286" x2="140" y2="100" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
+        <path d="M30,286 H14 V78 H28" fill="none" stroke="#AEBAC6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#cpArr)"/>
         <defs>
           <marker id="cpArr" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
             <path d="M0,0 L7,4 L0,8" fill="none" stroke="#AEBAC6" stroke-width="1.6"/>
@@ -301,8 +302,8 @@
         </defs>
         <text class="cpX" x="210" y="230">These run together early, then</text>
         <text class="cpX" x="210" y="248">converge to unblock the chain</text>
-        <rect x="30" y="300" width="14" height="14" rx="3" fill="#FBF3DD"/>
-        <text class="cpX" x="351" y="311">A delay on the critical path moves the end date. A delay in slack does not - until the slack runs out.</text>
+        <rect x="30" y="322" width="14" height="14" rx="3" fill="#FBF3DD"/>
+        <text class="cpX" x="52" y="333">A delay on the critical path moves the end date. A delay in slack does not - until the slack runs out.</text>
       </svg>
       <figcaption>🔍 Click to zoom - the critical chain in gold, parallel tracks converging into it</figcaption>
     </figure>
